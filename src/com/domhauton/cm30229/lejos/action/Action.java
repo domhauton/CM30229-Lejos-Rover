@@ -1,6 +1,6 @@
-package action;
+package com.domhauton.cm30229.lejos.action;
 
-import instruction.InstructionExecutionManager;
+import com.domhauton.cm30229.lejos.instruction.InstructionExecutionManager;
 
 /**
  * Created by dominic on 08/02/17.

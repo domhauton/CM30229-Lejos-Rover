@@ -1,4 +1,6 @@
-import panel.ButtonType;
+package com.domhauton.cm30229.lejos;
+
+import com.domhauton.cm30229.lejos.panel.ButtonType;
 
 /**
  * Created by dominic on 08/02/17.

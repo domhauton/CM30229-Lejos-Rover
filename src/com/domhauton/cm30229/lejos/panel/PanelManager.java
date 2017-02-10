@@ -1,4 +1,4 @@
-package panel;
+package com.domhauton.cm30229.lejos.panel;
 
 import lejos.nxt.ButtonListener;
 

@@ -1,6 +1,8 @@
+package com.domhauton.cm30229.lejos;
+
 import lejos.nxt.Button;
 import lejos.nxt.Motor;
-import panel.PanelButtonListener;
+import com.domhauton.cm30229.lejos.panel.PanelButtonListener;
 
 public class Main {
 

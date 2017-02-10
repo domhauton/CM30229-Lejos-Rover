@@ -1,4 +1,4 @@
-package panel;
+package com.domhauton.cm30229.lejos.panel;
 
 import lejos.nxt.Button;
 import lejos.nxt.ButtonListener;
@@ -27,7 +27,7 @@ public class PanelButtonListener implements ButtonListener {
         } else if (b.equals(Button.RIGHT)) {
             System.out.println("Right pressed.");
         } else {
-            System.err.println("Invalid button pressed in panel button listener");
+            System.err.println("Invalid button pressed in com.domhauton.cm30229.lejos.panel button listener");
         }
     }
 

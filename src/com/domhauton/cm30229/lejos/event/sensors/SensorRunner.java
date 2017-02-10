@@ -1,4 +1,4 @@
-package event;
+package com.domhauton.cm30229.lejos.event.sensors;
 
 import lejos.nxt.LightSensor;
 import lejos.nxt.SensorPort;
@@ -7,7 +7,7 @@ import lejos.nxt.TouchSensor;
 /**
  * Created by dominic on 10/02/17.
  */
-public class SensorManager implements Runnable {
+public class SensorRunner implements Runnable {
     private final long loopTimeLength;
     private long nextLoopTime = 0L;
     private long totalLoopTime = 0L;
@@ -16,8 +16,8 @@ public class SensorManager implements Runnable {
     private TouchSensor touchSensorBack;
     private LightSensor lightSensorFront;
 
-    public SensorManager(int sensor_poll_rate) {
-        loopTimeLength = 1000L/sensor_poll_rate;
+    public SensorRunner(int sensorPollRate) {
+        loopTimeLength = 1000L/sensorPollRate;
         touchSensorFront = new TouchSensor(SensorPort.S2);
         touchSensorBack = new TouchSensor(SensorPort.S1);
         lightSensorFront = new LightSensor(SensorPort.S3);
