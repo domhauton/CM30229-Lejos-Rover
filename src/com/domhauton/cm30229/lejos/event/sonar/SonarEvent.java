@@ -1,6 +1,6 @@
 package com.domhauton.cm30229.lejos.event.sonar;
 
-import com.domhauton.cm30229.lejos.event.Proximity;
+import com.domhauton.cm30229.lejos.util.Proximity;
 
 /**
  * Created by dominic on 10/02/17.

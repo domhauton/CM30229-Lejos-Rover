@@ -7,8 +7,10 @@ import lejos.nxt.ButtonListener;
  * Created by dominic on 08/02/17.
  */
 public class PanelButtonListener implements ButtonListener {
+    private final PanelEventCallback panelEventCallback;
 
-    public PanelButtonListener() {
+    public PanelButtonListener(PanelEventCallback panelEventCallback) {
+        this.panelEventCallback = panelEventCallback;
         Button.ENTER.addButtonListener(this);
         Button.LEFT.addButtonListener(this);
         Button.RIGHT.addButtonListener(this);
@@ -17,28 +19,12 @@ public class PanelButtonListener implements ButtonListener {
 
     @Override
     public void buttonPressed(Button b) {
-        if(b.equals(Button.ENTER)) {
-            System.out.println("Enter pressed.");
-        } else if (b.equals(Button.ESCAPE)) {
-            System.out.println("Escape pressed. Shutting down.");
-            System.exit(1);
-        } else if (b.equals(Button.LEFT)) {
-            System.out.println("Left pressed.");
-        } else if (b.equals(Button.RIGHT)) {
-            System.out.println("Right pressed.");
-        } else {
-            System.err.println("Invalid button pressed in com.domhauton.cm30229.lejos.panel button listener");
-        }
+        ButtonType buttonType = ButtonType.getFromNxtButton(b);
+        panelEventCallback.sendPanelEvent(buttonType);
     }
 
     @Override
     public void buttonReleased(Button b) {
-        if(b.equals(Button.ENTER)) {
-            System.out.println("Enter released.");
-        } else if (b.equals(Button.LEFT)) {
-            System.out.println("Left released.");
-        } else if (b.equals(Button.RIGHT)) {
-            System.out.println("Right released.");
-        }
+        // IGNORE
     }
 }

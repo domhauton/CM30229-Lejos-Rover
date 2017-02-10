@@ -1,19 +1,19 @@
 package com.domhauton.cm30229.lejos.event.sonar;
 
 
-import com.domhauton.cm30229.lejos.RobotManager;
+import com.domhauton.cm30229.lejos.controller.RoverManager;
 
 /**
  * Created by dominic on 10/02/17.
  */
 public class SonarEventCallback {
-    private RobotManager robotManager;
+    private RoverManager roverManager;
 
-    public SonarEventCallback(RobotManager robotManager) {
-        this.robotManager = robotManager;
+    public SonarEventCallback(RoverManager roverManager) {
+        this.roverManager = roverManager;
     }
 
     void sendSonarEvent(SonarEvent sonarEvent) {
-
+        roverManager.sonarEvent(sonarEvent);
     }
 }
