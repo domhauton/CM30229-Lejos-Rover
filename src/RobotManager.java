@@ -14,7 +14,9 @@ public class RobotManager implements Runnable {
     }
 
     public void panelButtonEvent(ButtonType e) {
-
+        if(e.equals(ButtonType.EXIT)) {
+            on = false;
+        }
     }
 
     public void bumpSensorEvent() {
@@ -35,6 +37,12 @@ public class RobotManager implements Runnable {
 
     @Override
     public void run() {
-
+        while(on) {
+            try {
+                Thread.sleep(LOOP_LENGTH);
+            } catch (InterruptedException e) {
+                System.err.println("Sleep interrupted");
+            }
+        }
     }
 }
