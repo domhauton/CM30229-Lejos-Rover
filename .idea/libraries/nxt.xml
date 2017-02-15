@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="nxt">
+    <CLASSES>
+      <root url="file:///usr/share/lejosnxj/lib/nxt" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file:///usr/share/lejosnxj/lib/nxt" />
+    </SOURCES>
+    <jarDirectory url="file:///usr/share/lejosnxj/lib/nxt" recursive="false" />
+    <jarDirectory url="file:///usr/share/lejosnxj/lib/nxt" recursive="false" type="SOURCES" />
+  </library>
+</component>
