@@ -73,14 +73,15 @@ public class RoverManager implements Runnable {
 
     private void checkState() {
     	printState();
-		if (movingForward) {
+		if (!movingForward) {
     		actionManager.executeAction(Action.FORWARD);
-    	} else if (!movingForward){
+    	} else if (movingForward){
     		actionManager.executeAction(Action.IDLE);
-    	} else if (roverState.getProximity(Direction.FRONT).equals(Proximity.NEAR)) {
+    	} else if (roverState.getProximity(Direction.FRONT).equals(Proximity.NEAR)
+    			|| roverState.getProximity(Direction.BACK).equals(Proximity.NEAR)) {
     		movingForward = false;
     		actionManager.executeAction(Action.IDLE);
-    	}
+    	} 
     }
     
     private void printState() {
