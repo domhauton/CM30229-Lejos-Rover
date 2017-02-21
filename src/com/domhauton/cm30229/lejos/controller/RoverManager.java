@@ -20,7 +20,6 @@ public class RoverManager implements Runnable {
     private long nextLoopTime;
     private long loopCounter;
     private boolean running;
-    private boolean movingForward;
 
     private final ActionManager actionManager;
 
@@ -42,10 +41,10 @@ public class RoverManager implements Runnable {
         }
         
         if (e.equals(ButtonType.MENU)) {
-        	if (movingForward) {
-        		movingForward = false;
+        	if (roverState.isMovingForward()) {
+        		roverState.setMovingForward(false);
         	} else {
-        		movingForward = true;
+        		roverState.setMovingForward(true);
         	}
         }
     }
@@ -62,7 +61,7 @@ public class RoverManager implements Runnable {
 
     @Override
     public void run() {
-    	movingForward = false;
+    	roverState.setMovingForward(false);
         running = true;
         while(running) {
             nextLoopTime = EventUtils.rateLimitSleep(nextLoopTime, loopTimeLength);
@@ -73,13 +72,13 @@ public class RoverManager implements Runnable {
 
     private void checkState() {
     	printState();
-		if (!movingForward) {
+		if (!roverState.isMovingForward()) {
     		actionManager.executeAction(Action.FORWARD);
-    	} else if (movingForward){
+    	} else if (roverState.isMovingForward()){
     		actionManager.executeAction(Action.IDLE);
     	} else if (roverState.getProximity(Direction.FRONT).equals(Proximity.NEAR)
     			|| roverState.getProximity(Direction.BACK).equals(Proximity.NEAR)) {
-    		movingForward = false;
+    		roverState.setMovingForward(false);
     		actionManager.executeAction(Action.IDLE);
     	} 
     }
@@ -98,7 +97,4 @@ public class RoverManager implements Runnable {
         this.shutdownCallback = shutdownCallback;
     }
     
-    public void setMovingForward(boolean movingForward) {
-    	this.movingForward = movingForward;
-    }
 }
