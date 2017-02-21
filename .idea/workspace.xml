@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="066fde2e-bdb5-4830-b547-93a19b610166" name="Default" comment="Fixed IDE file versioning.">
+    <list default="true" id="066fde2e-bdb5-4830-b547-93a19b610166" name="Default" comment="Fixed IDE Files - Attempt 2.">
       <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/description.html" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="" />
@@ -76,12 +76,47 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="663">
-              <caret line="229" column="25" lean-forward="true" selection-start-line="228" selection-start-column="10" selection-end-line="229" selection-end-column="25" />
+            <state relative-caret-position="8244">
+              <caret line="229" column="25" lean-forward="true" selection-start-line="229" selection-start-column="25" selection-end-line="229" selection-end-column="25" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="workspace.xml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="936">
+              <caret line="26" column="14" lean-forward="false" selection-start-line="26" selection-start-column="14" selection-end-line="26" selection-end-column="14" />
+              <folding>
+                <element signature="e#16188#16192#0" expanded="true" />
+                <element signature="e#16198#16202#0" expanded="true" />
+                <element signature="e#16283#16287#0" expanded="true" />
+                <element signature="e#16293#16297#0" expanded="true" />
+                <element signature="e#16376#16380#0" expanded="true" />
+                <element signature="e#16386#16390#0" expanded="true" />
+                <element signature="e#16403#16407#0" expanded="true" />
+                <element signature="e#16483#16487#0" expanded="true" />
+                <element signature="e#16493#16497#0" expanded="true" />
+                <element signature="e#16585#16589#0" expanded="true" />
+                <element signature="e#16595#16599#0" expanded="true" />
+                <element signature="e#16621#16625#0" expanded="true" />
+                <element signature="e#16711#16715#0" expanded="true" />
+                <element signature="e#16721#16725#0" expanded="true" />
+                <element signature="e#16804#16808#0" expanded="true" />
+                <element signature="e#16814#16818#0" expanded="true" />
+                <element signature="e#16894#16898#0" expanded="true" />
+                <element signature="e#16904#16908#0" expanded="true" />
+                <element signature="e#16985#16989#0" expanded="true" />
+                <element signature="e#16995#16999#0" expanded="true" />
+                <element signature="e#17010#17014#0" expanded="true" />
+                <element signature="e#17087#17091#0" expanded="true" />
+                <element signature="e#17097#17101#0" expanded="true" />
+                <element signature="e#17112#17116#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -157,7 +192,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/instruction/InstructionExecutionManger.java" />
         <option value="$PROJECT_DIR$/src/instruction/InstructionExecutionManrger.java" />
         <option value="$PROJECT_DIR$/src/instruction/InstructionExecutionManager.java" />
         <option value="$PROJECT_DIR$/src/instruction/InstructionType.java" />
@@ -208,6 +242,7 @@
         <option value="$PROJECT_DIR$/test/com/domhauton/cm30229/lejos/controller/RoverManagerTest.java" />
         <option value="$PROJECT_DIR$/bin/send.sh" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/.idea/workspace.xml" />
       </list>
     </option>
   </component>
@@ -1556,7 +1591,7 @@
       <workItem from="1486935793284" duration="1278000" />
       <workItem from="1487068802141" duration="1296000" />
       <workItem from="1487159415706" duration="2771000" />
-      <workItem from="1487707056355" duration="5365000" />
+      <workItem from="1487707056355" duration="5994000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit&#10;">
       <created>1486567826489</created>
@@ -1621,7 +1656,14 @@
       <option name="project" value="LOCAL" />
       <updated>1487716403890</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Fixed IDE Files - Attempt 2.">
+      <created>1487716573149</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1487716573149</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1636,7 +1678,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="38359000" />
+    <option name="totallyTimeSpent" value="38988000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="-21" width="3840" height="2151" extended-state="0" />
@@ -1654,10 +1696,10 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3288729" sideWeight="0.4968" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32938755" sideWeight="0.49893448" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3288729" sideWeight="0.5032" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3288729" sideWeight="0.5032" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18373333" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18373333" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1690,7 +1732,8 @@
     <MESSAGE value="Actions working" />
     <MESSAGE value="Added Tests and minor adjustments." />
     <MESSAGE value="Fixed IDE file versioning." />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed IDE file versioning." />
+    <MESSAGE value="Fixed IDE Files - Attempt 2." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed IDE Files - Attempt 2." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1701,14 +1744,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/domhauton/cm30229/lejos/util/Proximity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="756">
-          <caret line="21" column="29" lean-forward="false" selection-start-line="21" selection-start-column="29" selection-end-line="21" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/domhauton/cm30229/lejos/event/sonar/SonarRunner.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="576">
@@ -2079,9 +2114,42 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="663">
-          <caret line="229" column="25" lean-forward="true" selection-start-line="228" selection-start-column="10" selection-end-line="229" selection-end-column="25" />
+        <state relative-caret-position="8244">
+          <caret line="229" column="25" lean-forward="true" selection-start-line="229" selection-start-column="25" selection-end-line="229" selection-end-column="25" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="936">
+          <caret line="26" column="14" lean-forward="false" selection-start-line="26" selection-start-column="14" selection-end-line="26" selection-end-column="14" />
+          <folding>
+            <element signature="e#16188#16192#0" expanded="true" />
+            <element signature="e#16198#16202#0" expanded="true" />
+            <element signature="e#16283#16287#0" expanded="true" />
+            <element signature="e#16293#16297#0" expanded="true" />
+            <element signature="e#16376#16380#0" expanded="true" />
+            <element signature="e#16386#16390#0" expanded="true" />
+            <element signature="e#16403#16407#0" expanded="true" />
+            <element signature="e#16483#16487#0" expanded="true" />
+            <element signature="e#16493#16497#0" expanded="true" />
+            <element signature="e#16585#16589#0" expanded="true" />
+            <element signature="e#16595#16599#0" expanded="true" />
+            <element signature="e#16621#16625#0" expanded="true" />
+            <element signature="e#16711#16715#0" expanded="true" />
+            <element signature="e#16721#16725#0" expanded="true" />
+            <element signature="e#16804#16808#0" expanded="true" />
+            <element signature="e#16814#16818#0" expanded="true" />
+            <element signature="e#16894#16898#0" expanded="true" />
+            <element signature="e#16904#16908#0" expanded="true" />
+            <element signature="e#16985#16989#0" expanded="true" />
+            <element signature="e#16995#16999#0" expanded="true" />
+            <element signature="e#17010#17014#0" expanded="true" />
+            <element signature="e#17087#17091#0" expanded="true" />
+            <element signature="e#17097#17101#0" expanded="true" />
+            <element signature="e#17112#17116#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
