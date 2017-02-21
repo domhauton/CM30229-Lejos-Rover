@@ -229,7 +229,7 @@ TSWLatexianTemp*
 *-tags.tex
 .idea/inspectionProfiles/
 out/production/CM30229-Lejos/com/
-.idea/
+.idea
 CM30229-Lejos.iml
 
 lib/
