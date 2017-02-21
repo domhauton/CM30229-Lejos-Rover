@@ -1,5 +1,6 @@
 package com.domhauton.cm30229.lejos.controller;
 
+import com.domhauton.cm30229.lejos.action.ActionManager;
 import com.domhauton.cm30229.lejos.event.sensors.SensorEvent;
 import com.domhauton.cm30229.lejos.event.sonar.SonarEvent;
 import com.domhauton.cm30229.lejos.panel.ButtonType;
@@ -17,10 +18,13 @@ public class RoverManager implements Runnable {
     private long loopCounter;
     private boolean running;
 
+    private final ActionManager actionManager;
+
     private RoverState roverState;
     private ShutdownCallback shutdownCallback;
 
-    public RoverManager(long planRate) {
+    public RoverManager(long planRate, ActionManager actionManager) {
+        this.actionManager = actionManager;
         loopTimeLength = 1000L/planRate;
         roverState = new RoverState();
     }

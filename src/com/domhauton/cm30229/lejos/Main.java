@@ -1,5 +1,6 @@
 package com.domhauton.cm30229.lejos;
 
+import com.domhauton.cm30229.lejos.action.ActionManager;
 import com.domhauton.cm30229.lejos.controller.RoverManager;
 import com.domhauton.cm30229.lejos.controller.ShutdownCallback;
 import com.domhauton.cm30229.lejos.event.sensors.SensorEventCallback;
@@ -12,7 +13,9 @@ import com.domhauton.cm30229.lejos.panel.PanelEventCallback;
 public class Main {
 
     public static void main(String[] args) {
-        RoverManager roverManager = new RoverManager(10);
+        ActionManager actionManager = new ActionManager();
+
+        RoverManager roverManager = new RoverManager(10, actionManager);
         Thread roverManagerThread = new Thread(roverManager);
 
         PanelEventCallback panelEventCallback = new PanelEventCallback(roverManager);
