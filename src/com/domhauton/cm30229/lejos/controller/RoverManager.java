@@ -8,6 +8,8 @@ import com.domhauton.cm30229.lejos.panel.ButtonType;
 import com.domhauton.cm30229.lejos.state.Direction;
 import com.domhauton.cm30229.lejos.state.RoverState;
 import com.domhauton.cm30229.lejos.util.EventUtils;
+import com.domhauton.cm30229.lejos.util.Proximity;
+
 import lejos.nxt.LCD;
 
 /**
@@ -40,12 +42,10 @@ public class RoverManager implements Runnable {
         }
         
         if (e.equals(ButtonType.MENU)) {
-        	if (!movingForward) {
-        		movingForward = true;
-        		actionManager.executeAction(Action.FORWARD);
-        	} else {
+        	if (movingForward) {
         		movingForward = false;
-        		actionManager.executeAction(Action.IDLE);
+        	} else {
+        		movingForward = true;
         	}
         }
     }
@@ -66,11 +66,23 @@ public class RoverManager implements Runnable {
         running = true;
         while(running) {
             nextLoopTime = EventUtils.rateLimitSleep(nextLoopTime, loopTimeLength);
-            printState();
+            checkState();
             loopCounter++;
         }
     }
 
+    private void checkState() {
+    	printState();
+		if (movingForward) {
+    		actionManager.executeAction(Action.FORWARD);
+    	} else if (!movingForward){
+    		actionManager.executeAction(Action.IDLE);
+    	} else if (roverState.getProximity(Direction.FRONT).equals(Proximity.NEAR)) {
+    		movingForward = false;
+    		actionManager.executeAction(Action.IDLE);
+    	}
+    }
+    
     private void printState() {
         //LCD.clear();
         int row = 0;
