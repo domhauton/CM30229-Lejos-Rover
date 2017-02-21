@@ -12,7 +12,7 @@ public class PanelEventCallback {
         this.roverManager = roverManager;
     }
 
-    void sendPanelEvent(ButtonType buttonType) {
+    public void sendPanelEvent(ButtonType buttonType) {
         roverManager.panelButtonEvent(buttonType);
     }
 }

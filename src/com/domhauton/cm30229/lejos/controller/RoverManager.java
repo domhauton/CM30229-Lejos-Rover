@@ -1,8 +1,11 @@
 package com.domhauton.cm30229.lejos.controller;
 
+import com.domhauton.cm30229.lejos.action.Action;
+import com.domhauton.cm30229.lejos.action.ActionManager;
 import com.domhauton.cm30229.lejos.event.sensors.SensorEvent;
 import com.domhauton.cm30229.lejos.event.sonar.SonarEvent;
 import com.domhauton.cm30229.lejos.panel.ButtonType;
+import com.domhauton.cm30229.lejos.panel.PanelEventCallback;
 import com.domhauton.cm30229.lejos.state.Direction;
 import com.domhauton.cm30229.lejos.state.RoverState;
 import com.domhauton.cm30229.lejos.util.EventUtils;
@@ -16,9 +19,11 @@ public class RoverManager implements Runnable {
     private long nextLoopTime;
     private long loopCounter;
     private boolean running;
+    private boolean movingForward;
 
     private RoverState roverState;
     private ShutdownCallback shutdownCallback;
+    private ActionManager actionManager;
 
     public RoverManager(long planRate) {
         loopTimeLength = 1000L/planRate;
@@ -31,6 +36,16 @@ public class RoverManager implements Runnable {
             if(shutdownCallback != null) {
                 shutdownCallback.shutDownSensors();
             }
+        }
+        
+        if (e.equals(ButtonType.MENU)) {
+        	if (!movingForward) {
+        		movingForward = true;
+        		actionManager.executeAction(Action.FORWARD);
+        	} else {
+        		movingForward = false;
+        		actionManager.executeAction(Action.STOP);
+        	}
         }
     }
 
@@ -46,6 +61,7 @@ public class RoverManager implements Runnable {
 
     @Override
     public void run() {
+    	movingForward = false;
         running = true;
         while(running) {
             nextLoopTime = EventUtils.rateLimitSleep(nextLoopTime, loopTimeLength);
@@ -66,5 +82,9 @@ public class RoverManager implements Runnable {
 
     public void setShutdownCallback(ShutdownCallback shutdownCallback) {
         this.shutdownCallback = shutdownCallback;
+    }
+    
+    public void setMovingForward(boolean movingForward) {
+    	this.movingForward = movingForward;
     }
 }
