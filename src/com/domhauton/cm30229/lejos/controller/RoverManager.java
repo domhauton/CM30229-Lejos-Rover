@@ -38,14 +38,8 @@ public class RoverManager implements Runnable {
             if(shutdownCallback != null) {
                 shutdownCallback.shutDownSensors();
             }
-        }
-        
-        if (e.equals(ButtonType.MENU)) {
-        	if (roverState.isMovingForward()) {
-        		roverState.setMovingForward(false);
-        	} else {
-        		roverState.setMovingForward(true);
-        	}
+        } else if (e.equals(ButtonType.MENU)) {
+          roverState.toggleActive();
         }
     }
 
@@ -61,26 +55,27 @@ public class RoverManager implements Runnable {
 
     @Override
     public void run() {
-    	roverState.setMovingForward(false);
         running = true;
         while(running) {
             nextLoopTime = EventUtils.rateLimitSleep(nextLoopTime, loopTimeLength);
-            checkState();
+            Action nextAction = planAction(roverState);
+            actionManager.executeAction(nextAction);
+            printState();
             loopCounter++;
         }
     }
 
-    private void checkState() {
-    	printState();
-		if (!roverState.isMovingForward()) {
-    		actionManager.executeAction(Action.FORWARD);
-    	} else if (roverState.isMovingForward()){
-    		actionManager.executeAction(Action.IDLE);
-    	} else if (roverState.getProximity(Direction.FRONT).equals(Proximity.NEAR)
-    			|| roverState.getProximity(Direction.BACK).equals(Proximity.NEAR)) {
-    		roverState.setMovingForward(false);
-    		actionManager.executeAction(Action.IDLE);
-    	} 
+    /**
+     * Decide on what action to take next.
+     * @return Next action to be taken given state.
+     */
+    Action planAction(RoverState currentRoverState) {
+        boolean hasCrashed = currentRoverState.getProximity(Direction.FRONT).equals(Proximity.NEAR)
+                || currentRoverState.getProximity(Direction.BACK).equals(Proximity.NEAR);
+
+        boolean shouldMove = currentRoverState.isActive() && !hasCrashed;
+
+        return shouldMove ? Action.FORWARD : Action.IDLE;
     }
     
     private void printState() {
