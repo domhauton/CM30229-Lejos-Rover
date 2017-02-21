@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="066fde2e-bdb5-4830-b547-93a19b610166" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/bin/send.sh" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/com/domhauton/cm30229/lejos/controller/RoverManagerTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/CM30229-Lejos/Loading.nxj" afterPath="$PROJECT_DIR$/out/production/CM30229-Lejos/Loading.nxj" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CM30229-Lejos.iml" afterPath="$PROJECT_DIR$/CM30229-Lejos.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/domhauton/cm30229/lejos/controller/RoverManager.java" afterPath="$PROJECT_DIR$/src/com/domhauton/cm30229/lejos/controller/RoverManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/domhauton/cm30229/lejos/state/RoverState.java" afterPath="$PROJECT_DIR$/src/com/domhauton/cm30229/lejos/state/RoverState.java" />
+    <list default="true" id="066fde2e-bdb5-4830-b547-93a19b610166" name="Default" comment="Added Tests and minor adjustments.">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/description.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/nxt.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/pc.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/CM30229-Lejos.iml" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -62,11 +67,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="send.sh" pinned="false" current-in-tab="true">
+      <file leaf-file-name="send.sh" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bin/send.sh">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="108">
-              <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+              <caret line="3" column="78" lean-forward="true" selection-start-line="3" selection-start-column="78" selection-end-line="3" selection-end-column="78" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="663">
+              <caret line="229" column="25" lean-forward="true" selection-start-line="228" selection-start-column="10" selection-end-line="229" selection-end-column="25" />
               <folding />
             </state>
           </provider>
@@ -180,7 +195,6 @@
         <option value="$PROJECT_DIR$/src/com/domhauton/cm30229/lejos/event/sensors/SensorRunner.java" />
         <option value="$PROJECT_DIR$/src/com/domhauton/cm30229/lejos/event/sonar/SonarRunner.java" />
         <option value="$PROJECT_DIR$/src/com/domhauton/cm30229/lejos/controller/ShutdownCallback.java" />
-        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/src/com/domhauton/cm30229/lejos/action/actions/ExecutableAction.java" />
         <option value="$PROJECT_DIR$/src/com/domhauton/cm30229/lejos/action/Action.java" />
         <option value="$PROJECT_DIR$/src/com/domhauton/cm30229/lejos/action/actions/MoveForward.java" />
@@ -194,6 +208,7 @@
         <option value="$PROJECT_DIR$/src/com/domhauton/cm30229/lejos/state/RoverState.java" />
         <option value="$PROJECT_DIR$/test/com/domhauton/cm30229/lejos/controller/RoverManagerTest.java" />
         <option value="$PROJECT_DIR$/bin/send.sh" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -1628,7 +1643,7 @@
       <workItem from="1486935793284" duration="1278000" />
       <workItem from="1487068802141" duration="1296000" />
       <workItem from="1487159415706" duration="2771000" />
-      <workItem from="1487707056355" duration="4759000" />
+      <workItem from="1487707056355" duration="5207000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit&#10;">
       <created>1486567826489</created>
@@ -1679,7 +1694,14 @@
       <option name="project" value="LOCAL" />
       <updated>1487709384277</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Added Tests and minor adjustments.">
+      <created>1487715969163</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1487715969163</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1694,11 +1716,11 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="37753000" />
+    <option name="totallyTimeSpent" value="38201000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="-21" width="3840" height="2151" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1709,13 +1731,13 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3288729" sideWeight="0.4968034" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3288729" sideWeight="0.4968" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32938755" sideWeight="0.49893448" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32938755" sideWeight="0.50106555" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3288729" sideWeight="0.5032" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18373333" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18373333" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1746,7 +1768,8 @@
     <MESSAGE value="Rover sensing complete. Some calibration required." />
     <MESSAGE value="Added usable actions" />
     <MESSAGE value="Actions working" />
-    <option name="LAST_COMMIT_MESSAGE" value="Actions working" />
+    <MESSAGE value="Added Tests and minor adjustments." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Tests and minor adjustments." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1999,14 +2022,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5544">
-          <caret line="154" column="15" lean-forward="false" selection-start-line="154" selection-start-column="15" selection-end-line="154" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/domhauton/cm30229/lejos/event/sensors/SensorEvent.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="684">
@@ -2136,7 +2151,15 @@
     <entry file="file://$PROJECT_DIR$/bin/send.sh">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="108">
-          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <caret line="3" column="78" lean-forward="true" selection-start-line="3" selection-start-column="78" selection-end-line="3" selection-end-column="78" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="663">
+          <caret line="229" column="25" lean-forward="true" selection-start-line="228" selection-start-column="10" selection-end-line="229" selection-end-column="25" />
           <folding />
         </state>
       </provider>
