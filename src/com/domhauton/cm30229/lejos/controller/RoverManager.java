@@ -1,11 +1,10 @@
 package com.domhauton.cm30229.lejos.controller;
 
-import com.domhauton.cm30229.lejos.action.Action;
 import com.domhauton.cm30229.lejos.action.ActionManager;
+import com.domhauton.cm30229.lejos.action.actions.Action;
 import com.domhauton.cm30229.lejos.event.sensors.SensorEvent;
 import com.domhauton.cm30229.lejos.event.sonar.SonarEvent;
 import com.domhauton.cm30229.lejos.panel.ButtonType;
-import com.domhauton.cm30229.lejos.panel.PanelEventCallback;
 import com.domhauton.cm30229.lejos.state.Direction;
 import com.domhauton.cm30229.lejos.state.RoverState;
 import com.domhauton.cm30229.lejos.util.EventUtils;
@@ -21,11 +20,13 @@ public class RoverManager implements Runnable {
     private boolean running;
     private boolean movingForward;
 
+    private final ActionManager actionManager;
+
     private RoverState roverState;
     private ShutdownCallback shutdownCallback;
-    private ActionManager actionManager;
 
-    public RoverManager(long planRate) {
+    public RoverManager(long planRate, ActionManager actionManager) {
+        this.actionManager = actionManager;
         loopTimeLength = 1000L/planRate;
         roverState = new RoverState();
     }
@@ -44,7 +45,7 @@ public class RoverManager implements Runnable {
         		actionManager.executeAction(Action.FORWARD);
         	} else {
         		movingForward = false;
-        		actionManager.executeAction(Action.STOP);
+        		actionManager.executeAction(Action.IDLE);
         	}
         }
     }
