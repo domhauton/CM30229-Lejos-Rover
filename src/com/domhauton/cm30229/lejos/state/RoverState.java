@@ -9,6 +9,7 @@ import java.util.Arrays;
  */
 public class RoverState {
     private final Proximity[] proximities;
+    private boolean movingForward;
 
     public RoverState() {
         proximities = new Proximity[Direction.values().length];
@@ -21,5 +22,13 @@ public class RoverState {
 
     public synchronized Proximity getProximity(Direction direction) {
         return proximities[direction.ordinal()];
+    }
+    
+    public void setMovingForward(boolean movingForward) {
+    	this.movingForward = movingForward;
+    }
+    
+    public boolean isMovingForward() {
+    	return movingForward;
     }
 }

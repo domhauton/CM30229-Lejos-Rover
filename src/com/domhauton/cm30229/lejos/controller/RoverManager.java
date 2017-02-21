@@ -1,12 +1,15 @@
 package com.domhauton.cm30229.lejos.controller;
 
 import com.domhauton.cm30229.lejos.action.ActionManager;
+import com.domhauton.cm30229.lejos.action.actions.Action;
 import com.domhauton.cm30229.lejos.event.sensors.SensorEvent;
 import com.domhauton.cm30229.lejos.event.sonar.SonarEvent;
 import com.domhauton.cm30229.lejos.panel.ButtonType;
 import com.domhauton.cm30229.lejos.state.Direction;
 import com.domhauton.cm30229.lejos.state.RoverState;
 import com.domhauton.cm30229.lejos.util.EventUtils;
+import com.domhauton.cm30229.lejos.util.Proximity;
+
 import lejos.nxt.LCD;
 
 /**
@@ -36,6 +39,14 @@ public class RoverManager implements Runnable {
                 shutdownCallback.shutDownSensors();
             }
         }
+        
+        if (e.equals(ButtonType.MENU)) {
+        	if (roverState.isMovingForward()) {
+        		roverState.setMovingForward(false);
+        	} else {
+        		roverState.setMovingForward(true);
+        	}
+        }
     }
 
     public void sensorEvent(SensorEvent event) {
@@ -50,14 +61,28 @@ public class RoverManager implements Runnable {
 
     @Override
     public void run() {
+    	roverState.setMovingForward(false);
         running = true;
         while(running) {
             nextLoopTime = EventUtils.rateLimitSleep(nextLoopTime, loopTimeLength);
-            printState();
+            checkState();
             loopCounter++;
         }
     }
 
+    private void checkState() {
+    	printState();
+		if (!roverState.isMovingForward()) {
+    		actionManager.executeAction(Action.FORWARD);
+    	} else if (roverState.isMovingForward()){
+    		actionManager.executeAction(Action.IDLE);
+    	} else if (roverState.getProximity(Direction.FRONT).equals(Proximity.NEAR)
+    			|| roverState.getProximity(Direction.BACK).equals(Proximity.NEAR)) {
+    		roverState.setMovingForward(false);
+    		actionManager.executeAction(Action.IDLE);
+    	} 
+    }
+    
     private void printState() {
         //LCD.clear();
         int row = 0;
@@ -71,4 +96,5 @@ public class RoverManager implements Runnable {
     public void setShutdownCallback(ShutdownCallback shutdownCallback) {
         this.shutdownCallback = shutdownCallback;
     }
+    
 }
