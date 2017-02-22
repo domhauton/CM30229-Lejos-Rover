@@ -39,7 +39,11 @@ public class RoverManager implements Runnable {
                 shutdownCallback.shutDownSensors();
             }
         } else if (e.equals(ButtonType.MENU)) {
-          roverState.toggleActive();
+            roverState.toggleActive();
+        } else if (e.equals(ButtonType.LEFT)) {
+        	roverState.setWallPriority(Direction.LEFT);
+        } else if (e.equals(ButtonType.RIGHT)) {
+        	roverState.setWallPriority(Direction.RIGHT);
         }
     }
 
