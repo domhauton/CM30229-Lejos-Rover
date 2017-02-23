@@ -88,13 +88,12 @@ public class RoverManager implements Runnable {
     	case LEFT:
     		switch (rightProximity) {
     		case NEAR:
-    			if (leftProximity.equals(Proximity.MID)|| leftProximity.equals(Proximity.FAR)) {
-    				return Action.ROTATE_LEFT;
+    			if (leftProximity.equals(Proximity.MID)) {
+    				return Action.ROTATE_180;
     			}
-    			break;
     		case MID:
     			if (leftProximity.equals(Proximity.FAR)) {
-    				return Action.ROTATE_LEFT;
+    				return Action.ROTATE_180;
     			}
     			break;
     		default: break;
@@ -104,13 +103,12 @@ public class RoverManager implements Runnable {
 		case RIGHT:
 			switch (leftProximity) {
     		case NEAR:
-    			if (rightProximity.equals(Proximity.MID)|| rightProximity.equals(Proximity.FAR)) {
-    				return Action.ROTATE_RIGHT;
+    			if (rightProximity.equals(Proximity.MID)) {
+    				return Action.ROTATE_180;
     			}
-    			break;
     		case MID:
     			if (rightProximity.equals(Proximity.FAR)) {
-    				return Action.ROTATE_RIGHT;
+    				return Action.ROTATE_180;
     			}
     			break;
     		default: break;

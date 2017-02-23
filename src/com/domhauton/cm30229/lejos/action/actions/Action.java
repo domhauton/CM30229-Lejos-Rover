@@ -8,6 +8,7 @@ public enum Action {
   BACKWARD(null),
   ROTATE_LEFT(null),
   ROTATE_RIGHT(null),
+  ROTATE_180(null),
   IDLE(new Idle());
 
   private ExecutableAction executableAction;
