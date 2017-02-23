@@ -45,44 +45,11 @@ public class SonarRunner implements Runnable {
     @Override
     public void run() {
     	//calibration
-        if (Button.ENTER.isDown()) {
-        	//Near calibration
-        	EventUtils.debugDisplay1("NEAR Calbration sequence started. "
-        			+ "Place object to the LEFT of the robot for your "
-        			+ "NEAR value and press left button "
-        			+ "simultaneously to calibrate the NEAR limit.");
-        	while (Button.LEFT.isUp());
-        	swivelMotor.rotate(LEFT_DEGREE_OFFSET);
-        	LEFT_NEAR_CAP = getSonarDistance();
-        	
-        	EventUtils.debugDisplay1("NEAR Calbration sequence started. "
-        			+ "Place object to the RIGHT of the robot for your "
-        			+ "NEAR value and press right button "
-        			+ "simultaneously to calibrate the NEAR limit.");
-        	while (Button.RIGHT.isUp());
-        	swivelMotor.rotate(-(LEFT_DEGREE_OFFSET + RIGHT_DEGREE_OFFSET));
-        	RIGHT_NEAR_CAP = getSonarDistance();
-        	
-        	//Mid calibration
-        	EventUtils.debugDisplay1("MID Calbration sequence started. "
-        			+ "Place object to the LEFT of the robot for your "
-        			+ "MID value and press left button "
-        			+ "simultaneously to calibrate the NEAR limit.");
-        	while (Button.LEFT.isUp());
-        	swivelMotor.rotate(LEFT_DEGREE_OFFSET + RIGHT_DEGREE_OFFSET);
-        	LEFT_MID_CAP = getSonarDistance();
-        	
-        	EventUtils.debugDisplay1("MID Calbration sequence started. "
-        			+ "Place object to the RIGHT of the robot for your "
-        			+ "MID value and press right button "
-        			+ "simultaneously to calibrate the NEAR limit.");
-        	while (Button.RIGHT.isUp());
-        	swivelMotor.rotate(-(LEFT_DEGREE_OFFSET + RIGHT_DEGREE_OFFSET));
-        	RIGHT_MID_CAP = getSonarDistance();
-        	
-        	swivelMotor.rotate(RIGHT_DEGREE_OFFSET);
-        }
-    	
+    	if(Button.ENTER.isDown()) {
+    		calibrate();
+    	}
+
+    	//main loop
         while(running) {
             nextLoopTime = EventUtils.rateLimitSleep(nextLoopTime, loopTimeLength);
             swivelMotor.rotate(LEFT_DEGREE_OFFSET);
@@ -109,6 +76,44 @@ public class SonarRunner implements Runnable {
         return EventUtils.getAverageDistance(measurements);
     }
 
+    private void calibrate() {
+    	//Near calibration
+    	EventUtils.debugDisplay1("NEAR Calbration sequence started. "
+    			+ "Place object to the LEFT of the robot for your "
+    			+ "NEAR value and press left button "
+    			+ "simultaneously to calibrate the NEAR limit.");
+    	while (Button.LEFT.isUp());
+    	swivelMotor.rotate(LEFT_DEGREE_OFFSET);
+    	LEFT_NEAR_CAP = getSonarDistance();
+    	
+    	EventUtils.debugDisplay1("NEAR Calbration sequence started. "
+    			+ "Place object to the RIGHT of the robot for your "
+    			+ "NEAR value and press right button "
+    			+ "simultaneously to calibrate the NEAR limit.");
+    	while (Button.RIGHT.isUp());
+    	swivelMotor.rotate(-(LEFT_DEGREE_OFFSET + RIGHT_DEGREE_OFFSET));
+    	RIGHT_NEAR_CAP = getSonarDistance();
+    	
+    	//Mid calibration
+    	EventUtils.debugDisplay1("MID Calbration sequence started. "
+    			+ "Place object to the LEFT of the robot for your "
+    			+ "MID value and press left button "
+    			+ "simultaneously to calibrate the NEAR limit.");
+    	while (Button.LEFT.isUp());
+    	swivelMotor.rotate(LEFT_DEGREE_OFFSET + RIGHT_DEGREE_OFFSET);
+    	LEFT_MID_CAP = getSonarDistance();
+    	
+    	EventUtils.debugDisplay1("MID Calbration sequence started. "
+    			+ "Place object to the RIGHT of the robot for your "
+    			+ "MID value and press right button "
+    			+ "simultaneously to calibrate the NEAR limit.");
+    	while (Button.RIGHT.isUp());
+    	swivelMotor.rotate(-(LEFT_DEGREE_OFFSET + RIGHT_DEGREE_OFFSET));
+    	RIGHT_MID_CAP = getSonarDistance();
+    	
+    	swivelMotor.rotate(RIGHT_DEGREE_OFFSET);
+    }
+    
     public void stop() {
         running = false;
     }
