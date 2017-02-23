@@ -5,9 +5,9 @@ package com.domhauton.cm30229.lejos.action.actions;
  */
 public enum Action {
   FORWARD(new MoveForward()),
-  BACKWARD(null),
-  ROTATE_LEFT(null),
-  ROTATE_RIGHT(null),
+  BACKWARD(new MoveBackward()),
+  ROTATE_LEFT(new RotateLeft()),
+  ROTATE_RIGHT(new RotateRight()),
   ROTATE_180(new Rotate180()),
   IDLE(new Idle());
 
