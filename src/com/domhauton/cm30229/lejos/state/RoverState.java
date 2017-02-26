@@ -1,46 +1,51 @@
 package com.domhauton.cm30229.lejos.state;
 
+import com.domhauton.cm30229.lejos.action.actions.Action;
+import com.domhauton.cm30229.lejos.movement.Movement;
 import com.domhauton.cm30229.lejos.util.Proximity;
 
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by dominic on 10/02/17.
  */
 public class RoverState {
-  private final Proximity[] proximities;
-  private boolean active;
+  private final Proximity[] proximityDirections;
+  private boolean isMoving;
+  // Menu state
   private boolean activitySelectionActive;
-  private Direction wallPriority;
+  private Direction circumnavigationDirection;
+
+  // Planning state
+  private Movement currentMovement;
+  private LinkedList<Action> currentPlan;
 
   public RoverState() {
-    proximities = new Proximity[Direction.values().length];
-    Arrays.fill(proximities, Proximity.FAR);
-    wallPriority = Direction.FRONT; //defaults to follow neither wall
+    proximityDirections = new Proximity[Direction.values().length];
+    Arrays.fill(proximityDirections, Proximity.FAR);
+    circumnavigationDirection = Direction.FRONT; //defaults to follow neither wall
     activitySelectionActive = false;
+    currentMovement = Movement.IDLE;
   }
 
   public synchronized RoverState setProximity(Direction direction, Proximity proximity) {
-    proximities[direction.ordinal()] = proximity;
+    proximityDirections[direction.ordinal()] = proximity;
     return this;
   }
 
   public synchronized Proximity getProximity(Direction direction) {
-    return proximities[direction.ordinal()];
+    return proximityDirections[direction.ordinal()];
   }
 
-  public RoverState toggleActive() {
-    this.active = !this.active;
+  public RoverState toggleMoving() {
+    this.isMoving = !this.isMoving;
     return this;
   }
 
-  public boolean isActive() {
-    return active;
-  }
-
-  public RoverState setActive(boolean active) {
-    this.active = active;
-    return this;
+  public boolean isMoving() {
+    return isMoving;
   }
 
   public boolean isActivitySelectionActive() {
@@ -51,11 +56,35 @@ public class RoverState {
     this.activitySelectionActive = activitySelectionActive;
   }
 
-  public Direction getWallPriority() {
-    return wallPriority;
+  public Direction getCircumnavigationDirection() {
+    return circumnavigationDirection;
   }
 
-  public void setWallPriority(Direction wallPriority) {
-    this.wallPriority = wallPriority;
+  public void setCircumnavigationDirection(Direction circumnavigationDirection) {
+    this.circumnavigationDirection = circumnavigationDirection;
+  }
+
+  public Proximity getWallPriorityProximity() {
+    return getProximity(circumnavigationDirection);
+  }
+
+  public Movement getCurrentMovement() {
+    return currentMovement;
+  }
+
+  public void setCurrentMovement(Movement currentMovement) {
+    this.currentMovement = currentMovement;
+  }
+
+  public boolean isCrashed() {
+    return getProximity(Direction.FRONT).equals(Proximity.NEAR) || getProximity(Direction.BACK).equals(Proximity.NEAR);
+  }
+
+  public LinkedList<Action> getCurrentPlan() {
+    return currentPlan;
+  }
+
+  public void addToPlan(List<Action> actionChain) {
+    currentPlan.addAll(actionChain);
   }
 }

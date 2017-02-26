@@ -4,11 +4,11 @@ import com.domhauton.cm30229.lejos.action.ActionManager;
 import com.domhauton.cm30229.lejos.action.actions.Action;
 import com.domhauton.cm30229.lejos.event.sensors.SensorEvent;
 import com.domhauton.cm30229.lejos.event.sonar.SonarEvent;
+import com.domhauton.cm30229.lejos.movement.MovementManager;
 import com.domhauton.cm30229.lejos.panel.ButtonType;
 import com.domhauton.cm30229.lejos.state.Direction;
 import com.domhauton.cm30229.lejos.state.RoverState;
 import com.domhauton.cm30229.lejos.util.EventUtils;
-import com.domhauton.cm30229.lejos.util.Proximity;
 import lejos.nxt.LCD;
 
 /**
@@ -31,7 +31,7 @@ public class RoverManager implements Runnable {
 
   public void panelButtonEvent(ButtonType e) {
 
-    if (roverState.isActivitySelectionActive() && !roverState.isActive()) { // Action Selection Menu
+    if (roverState.isActivitySelectionActive() && !roverState.isMoving()) { // Action Selection Menu
       roverState.setActivitySelectionActive(false);
       switch (e) {
         case LEFT:
@@ -41,9 +41,9 @@ public class RoverManager implements Runnable {
           EventUtils.debugDisplay1("Cal Done");
           break;
         case MENU:
-          roverState.toggleActive();
+          roverState.toggleMoving();
           EventUtils.debugDisplay1("Following Wall");
-          EventUtils.debugDisplay2(roverState.getWallPriority().toString());
+          EventUtils.debugDisplay2(roverState.getCircumnavigationDirection().toString());
           break;
         case EXIT:
           running = false;
@@ -55,12 +55,12 @@ public class RoverManager implements Runnable {
           running = false;
           sensorCallback.shutDownSensors();
         case LEFT:
-          roverState.setWallPriority(Direction.LEFT);
+          roverState.setCircumnavigationDirection(Direction.LEFT);
         case RIGHT:
-          roverState.setWallPriority(Direction.RIGHT);
+          roverState.setCircumnavigationDirection(Direction.RIGHT);
         case MENU:
-          if (roverState.isActive()) {
-            roverState.toggleActive();
+          if (roverState.isMoving()) {
+            roverState.toggleMoving();
             EventUtils.debugDisplay1("Stopped");
             EventUtils.debugDisplay2("");
           } else {
@@ -90,25 +90,11 @@ public class RoverManager implements Runnable {
     sensorCallback.runSensors();
     while (running) {
       nextLoopTime = EventUtils.rateLimitSleep(nextLoopTime, loopTimeLength);
-      Action nextAction = planAction(roverState);
+      Action nextAction = MovementManager.planAction(roverState);
       actionManager.executeAction(nextAction);
       printState();
       loopCounter++;
     }
-  }
-
-  /**
-   * Decide on what action to take next.
-   *
-   * @return Next action to be taken given state.
-   */
-  Action planAction(RoverState currentRoverState) {
-    boolean hasCrashed = currentRoverState.getProximity(Direction.FRONT).equals(Proximity.NEAR)
-            || currentRoverState.getProximity(Direction.BACK).equals(Proximity.NEAR);
-
-    boolean shouldMove = currentRoverState.isActive() && !hasCrashed;
-
-    return shouldMove ? Action.FORWARD : Action.IDLE;
   }
 
   private void printState() {

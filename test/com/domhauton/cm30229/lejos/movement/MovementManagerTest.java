@@ -1,4 +1,4 @@
-package com.domhauton.cm30229.lejos.controller;
+package com.domhauton.cm30229.lejos.movement;
 
 import com.domhauton.cm30229.lejos.action.actions.Action;
 import com.domhauton.cm30229.lejos.state.Direction;
@@ -9,10 +9,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
- * Created by Dominic Hauton on 21/02/17.
+ * Created by Dominic Hauton on 26/02/17.
  */
-class RoverManagerTest {
-  private RoverManager roverManager;
+class MovementManagerTest {
 
   private RoverState normalState;
   private RoverState crashedFrontState;
@@ -20,43 +19,42 @@ class RoverManagerTest {
 
   @BeforeEach
   void setUp() throws Exception {
-    roverManager = new RoverManager(10, null);
-
     normalState = new RoverState()
-            .setActive(true);
+            .toggleMoving();
     crashedFrontState = new RoverState()
-            .setActive(true)
+            .toggleMoving()
             .setProximity(Direction.FRONT, Proximity.NEAR);
     crashedBackState = new RoverState()
-            .setActive(true)
+            .toggleMoving()
             .setProximity(Direction.FRONT, Proximity.NEAR);
   }
 
   @Test
   void idleWhenInactive() throws Exception {
-    Action plannedAction = roverManager.planAction(new RoverState());
+    Action plannedAction = MovementManager.planAction(new RoverState());
 
     Assertions.assertEquals(Action.IDLE, plannedAction);
   }
 
   @Test
   void moveForwardWhenNormal() throws Exception {
-    Action plannedAction = roverManager.planAction(normalState);
+    Action plannedAction = MovementManager.planAction(normalState);
 
     Assertions.assertEquals(Action.FORWARD, plannedAction);
   }
 
   @Test
   void idleWhenFrontCrash() throws Exception {
-    Action plannedAction = roverManager.planAction(crashedFrontState);
+    Action plannedAction = MovementManager.planAction(crashedFrontState);
 
     Assertions.assertEquals(Action.IDLE, plannedAction);
   }
 
   @Test
   void idleWhenBackCrash() throws Exception {
-    Action plannedAction = roverManager.planAction(crashedBackState);
+    Action plannedAction = MovementManager.planAction(crashedBackState);
 
     Assertions.assertEquals(Action.IDLE, plannedAction);
   }
+
 }
