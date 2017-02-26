@@ -16,12 +16,10 @@ import lejos.nxt.LCD;
  */
 public class RoverManager implements Runnable {
   private final long loopTimeLength;
+  private final ActionManager actionManager;
   private long nextLoopTime;
   private long loopCounter;
   private boolean running;
-
-  private final ActionManager actionManager;
-
   private RoverState roverState;
   private SensorCallback sensorCallback;
 
@@ -105,52 +103,6 @@ public class RoverManager implements Runnable {
    * @return Next action to be taken given state.
    */
   Action planAction(RoverState currentRoverState) {
-
-//    Direction currentWallPriority = roverState.getWallPriority();
-//    Proximity leftProximity = roverState.getProximity(Direction.LEFT);
-//    Proximity rightProximity = roverState.getProximity(Direction.RIGHT);
-
-//    	/*
-//    	 * Checks if the high priority wall is further away, and if so it acts accordingly
-//    	 * to correct it.
-//    	 */
-//    switch (currentWallPriority) {
-//      case LEFT:
-//        switch (rightProximity) {
-//          case NEAR:
-//            if (leftProximity.equals(Proximity.MID)) {
-//              return Action.ROTATE_180;
-//            }
-//          case MID:
-//            if (leftProximity.equals(Proximity.FAR)) {
-//              return Action.ROTATE_180;
-//            }
-//            break;
-//          default:
-//            break;
-//        }
-//
-//        break;
-//      case RIGHT:
-//        switch (leftProximity) {
-//          case NEAR:
-//            if (rightProximity.equals(Proximity.MID)) {
-//              return Action.ROTATE_180;
-//            }
-//          case MID:
-//            if (rightProximity.equals(Proximity.FAR)) {
-//              return Action.ROTATE_180;
-//            }
-//            break;
-//          default:
-//            break;
-//        }
-//
-//        break;
-//      default:
-//        break;
-//    }
-
     boolean hasCrashed = currentRoverState.getProximity(Direction.FRONT).equals(Proximity.NEAR)
             || currentRoverState.getProximity(Direction.BACK).equals(Proximity.NEAR);
 
