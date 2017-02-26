@@ -17,17 +17,13 @@ public class SonarRunner implements Runnable {
   private static double LEFT_MID_CAP = 35.0;
   private static double RIGHT_NEAR_CAP = 17.0;
   private static double RIGHT_MID_CAP = 30.0;
-
-  private boolean running;
-
   private final long loopTimeLength;
-  private long nextLoopTime = 0L;
-  private long loopCounter = 0L;
-
   private final UltrasonicSensor ultrasonicSensor;
   private final NXTRegulatedMotor swivelMotor;
   private final SonarEventCallback sonarEventCallback;
-
+  private boolean running;
+  private long nextLoopTime = 0L;
+  private long loopCounter = 0L;
   private SonarEvent lastEvent;
 
   public SonarRunner(int sensorPollRate, SonarEventCallback sonarEventCallback) {

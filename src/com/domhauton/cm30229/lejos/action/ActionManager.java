@@ -7,13 +7,13 @@ import com.domhauton.cm30229.lejos.action.movement.MovementController;
  * Created by dominic on 08/02/17.
  */
 public class ActionManager {
-    private final MovementController movementController;
+  private final MovementController movementController;
 
-    public ActionManager() {
-        movementController = new MovementController();
-    }
+  public ActionManager() {
+    movementController = new MovementController();
+  }
 
-    public void executeAction(Action action) {
-        action.getExecutableAction().execute(movementController);
-    }
+  public void executeAction(Action action) {
+    action.getExecutableAction().execute(movementController);
+  }
 }

@@ -25,8 +25,8 @@ public class MovementController {
   public NXTRegulatedMotor getMotorRight() {
     return motorRight;
   }
-  
+
   public DifferentialPilot getDifferentialPilot() {
-	  return differentialPilot;
+    return differentialPilot;
   }
 }

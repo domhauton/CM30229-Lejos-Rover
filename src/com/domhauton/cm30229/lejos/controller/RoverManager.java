@@ -31,7 +31,7 @@ public class RoverManager implements Runnable {
 
   public void panelButtonEvent(ButtonType e) {
 
-    if(roverState.isActivitySelectionActive() && !roverState.isActive()) { // Action Selection Menu
+    if (roverState.isActivitySelectionActive() && !roverState.isActive()) { // Action Selection Menu
       roverState.setActivitySelectionActive(false);
       switch (e) {
         case LEFT:
@@ -59,7 +59,7 @@ public class RoverManager implements Runnable {
         case RIGHT:
           roverState.setWallPriority(Direction.RIGHT);
         case MENU:
-          if(roverState.isActive()) {
+          if (roverState.isActive()) {
             roverState.toggleActive();
             EventUtils.debugDisplay1("Stopped");
             EventUtils.debugDisplay2("");
