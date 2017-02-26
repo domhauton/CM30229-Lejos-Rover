@@ -10,12 +10,14 @@ import java.util.Arrays;
 public class RoverState {
     private final Proximity[] proximities;
     private boolean active;
+    private boolean activitySelectionActive;
     private Direction wallPriority;
 
     public RoverState() {
         proximities = new Proximity[Direction.values().length];
         Arrays.fill(proximities, Proximity.FAR);
         wallPriority = Direction.FRONT; //defaults to follow neither wall
+        activitySelectionActive = false;
     }
 
     public synchronized RoverState setProximity(Direction direction, Proximity proximity) {
@@ -44,7 +46,15 @@ public class RoverState {
     public void setWallPriority(Direction wallPriority) {
     	this.wallPriority = wallPriority;
     }
-    
+
+    public boolean isActivitySelectionActive() {
+        return activitySelectionActive;
+    }
+
+    public void setActivitySelectionActive(boolean activitySelectionActive) {
+        this.activitySelectionActive = activitySelectionActive;
+    }
+
     public Direction getWallPriority() {
     	return wallPriority;
     }

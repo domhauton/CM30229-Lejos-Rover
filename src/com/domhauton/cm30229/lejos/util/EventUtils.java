@@ -1,5 +1,6 @@
 package com.domhauton.cm30229.lejos.util;
 
+import lejos.nxt.Button;
 import lejos.nxt.LCD;
 
 /**
@@ -17,6 +18,23 @@ public abstract class EventUtils {
             }
         }
         return System.currentTimeMillis() + loopTimeLength;
+    }
+
+    public static void waitForPress(Button button) {
+        while(button.isUp()) {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                // Do nothing
+            }
+        }
+        while(button.isDown()) {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                // Do nothing
+            }
+        }
     }
 
     public static double getAverageDistance(double[] measurements) {
@@ -60,9 +78,11 @@ public abstract class EventUtils {
     }
 
     public static void debugDisplay1(String message) {
+        LCD.clear(6);
         LCD.drawString(message,0, 6);
     }
     public static void debugDisplay2(String message) {
+        LCD.clear(7);
         LCD.drawString(message,0, 7);
     }
 }

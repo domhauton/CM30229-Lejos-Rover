@@ -10,8 +10,8 @@ import lejos.nxt.*;
 public class SonarRunner implements Runnable {
   private final static int MEASUREMENT_CNT = 5;
 
-  private final static int LEFT_DEGREE_OFFSET = 30;
-  private final static int RIGHT_DEGREE_OFFSET = 30;
+  private final static int LEFT_DEGREE_OFFSET = 40;
+  private final static int RIGHT_DEGREE_OFFSET = 40;
 
   private static double LEFT_NEAR_CAP = 27.0;
   private static double LEFT_MID_CAP = 35.0;
@@ -39,48 +39,49 @@ public class SonarRunner implements Runnable {
 
   @Override
   public void run() {
+    running = true;
+    swivelMotor.rotate(LEFT_DEGREE_OFFSET);
     while (running) {
       nextLoopTime = EventUtils.rateLimitSleep(nextLoopTime, loopTimeLength);
-      swivelMotor.rotate(LEFT_DEGREE_OFFSET);
       double leftDistance = getSonarDistance();
       Proximity leftProximity = Proximity.getProximityIncreasing(leftDistance, LEFT_NEAR_CAP, LEFT_MID_CAP);
       swivelMotor.rotate(-(LEFT_DEGREE_OFFSET + RIGHT_DEGREE_OFFSET));
       double rightDistance = getSonarDistance();
       Proximity rightProximity = Proximity.getProximityIncreasing(rightDistance, RIGHT_NEAR_CAP, RIGHT_MID_CAP);
-      swivelMotor.rotate(RIGHT_DEGREE_OFFSET);
+      swivelMotor.rotate(LEFT_DEGREE_OFFSET + RIGHT_DEGREE_OFFSET);
       SonarEvent sonarEvent = new SonarEvent(leftProximity, rightProximity);
-      EventUtils.debugDisplay1("Sense Loop: " + loopCounter);
-      EventUtils.debugDisplay2("L" + leftDistance + ",R" + rightDistance);
+//      EventUtils.debugDisplay1("Sense Loop: " + loopCounter);
+//      EventUtils.debugDisplay2("L" + leftDistance + ",R" + rightDistance);
       sonarEventCallback.sendSonarEvent(sonarEvent);
       loopCounter++;
     }
+    swivelMotor.rotate(-LEFT_DEGREE_OFFSET);
   }
 
   public void runCalibrationSequence() {
     //Near calibration
-    EventUtils.debugDisplay1("Near Left Cal.");
-    EventUtils.debugDisplay2("Press Left to set");
-    while (Button.LEFT.isUp()) ;
     swivelMotor.rotate(LEFT_DEGREE_OFFSET);
+
+    EventUtils.debugDisplay1("Near R Cal");
+    EventUtils.debugDisplay2("Press Enter");
+    Button.ENTER.waitForPress();
     LEFT_NEAR_CAP = getSonarDistance();
 
-    EventUtils.debugDisplay1("Near Right Cal.");
-    EventUtils.debugDisplay2("Press Right to set");
-    while (Button.RIGHT.isUp()) ;
-    swivelMotor.rotate(-(LEFT_DEGREE_OFFSET + RIGHT_DEGREE_OFFSET));
-    RIGHT_NEAR_CAP = getSonarDistance();
-
-    //Mid calibration
-    EventUtils.debugDisplay1("Mid Left Cal.");
-    EventUtils.debugDisplay2("Press Left to set");
-    while (Button.LEFT.isUp()) ;
-    swivelMotor.rotate(LEFT_DEGREE_OFFSET + RIGHT_DEGREE_OFFSET);
+    EventUtils.debugDisplay1("Mid R Cal.");
+    EventUtils.debugDisplay2("Press Enter");
+    Button.ENTER.waitForPress();
     LEFT_MID_CAP = getSonarDistance();
 
-    EventUtils.debugDisplay1("Mid Right Cal.");
-    EventUtils.debugDisplay2("Press Right to set");
-    while (Button.RIGHT.isUp()) ;
     swivelMotor.rotate(-(LEFT_DEGREE_OFFSET + RIGHT_DEGREE_OFFSET));
+
+    EventUtils.debugDisplay1("Near L Cal");
+    EventUtils.debugDisplay2("Press Enter");
+    Button.ENTER.waitForPress();
+    RIGHT_NEAR_CAP = getSonarDistance();
+
+    EventUtils.debugDisplay1("Mid L Cal.");
+    EventUtils.debugDisplay2("Press Enter");
+    Button.ENTER.waitForPress();
     RIGHT_MID_CAP = getSonarDistance();
 
     swivelMotor.rotate(RIGHT_DEGREE_OFFSET);
