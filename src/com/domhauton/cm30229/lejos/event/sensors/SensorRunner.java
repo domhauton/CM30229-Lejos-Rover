@@ -48,6 +48,10 @@ public class SensorRunner implements Runnable {
         }
     }
 
+    public void runCalibrationSequence() {
+        //TODO complete
+    }
+
     private synchronized Proximity getLightSensorProximity() {
         double[] measurements = new double[OPTICAL_SENSE_COUNT];
         for(int i = 0; i < measurements.length; i++) {

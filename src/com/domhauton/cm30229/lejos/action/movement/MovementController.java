@@ -15,7 +15,7 @@ public class MovementController {
   public MovementController() {
     motorLeft = Motor.A;
     motorRight = Motor.C;
-    differentialPilot = new DifferentialPilot(60, 109, motorLeft, motorRight);
+    differentialPilot = new DifferentialPilot(56, 109, motorLeft, motorRight);
   }
 
   public NXTRegulatedMotor getMotorLeft() {

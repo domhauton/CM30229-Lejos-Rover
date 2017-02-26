@@ -2,7 +2,7 @@ package com.domhauton.cm30229.lejos;
 
 import com.domhauton.cm30229.lejos.action.ActionManager;
 import com.domhauton.cm30229.lejos.controller.RoverManager;
-import com.domhauton.cm30229.lejos.controller.ShutdownCallback;
+import com.domhauton.cm30229.lejos.controller.SensorCallback;
 import com.domhauton.cm30229.lejos.event.sensors.SensorEventCallback;
 import com.domhauton.cm30229.lejos.event.sensors.SensorRunner;
 import com.domhauton.cm30229.lejos.event.sonar.SonarEventCallback;
@@ -23,17 +23,16 @@ public class Main {
 
         SensorEventCallback sensorEventCallback = new SensorEventCallback(roverManager);
         SensorRunner sensorRunner = new SensorRunner(10, sensorEventCallback);
-        Thread sensorThread = new Thread(sensorRunner);
+
 
         SonarEventCallback sonarEventCallback = new SonarEventCallback(roverManager);
         SonarRunner sonarRunner = new SonarRunner(1, sonarEventCallback);
-        Thread sonarThread = new Thread(sonarRunner);
 
-        ShutdownCallback shutdownCallback = new ShutdownCallback(sensorRunner, sonarRunner);
-        roverManager.setShutdownCallback(shutdownCallback);
 
-        sensorThread.start();
-        sonarThread.start();
+        SensorCallback sensorCallback = new SensorCallback(sensorRunner, sonarRunner);
+        roverManager.setSensorCallback(sensorCallback);
+
+
         roverManagerThread.start();
     }
 }
