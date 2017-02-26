@@ -2,6 +2,7 @@ package com.domhauton.cm30229.lejos.event.sensors;
 
 import com.domhauton.cm30229.lejos.util.EventUtils;
 import com.domhauton.cm30229.lejos.util.Proximity;
+import lejos.nxt.Button;
 import lejos.nxt.LightSensor;
 import lejos.nxt.SensorPort;
 import lejos.nxt.TouchSensor;
@@ -12,11 +13,11 @@ import lejos.nxt.TouchSensor;
 public class SensorRunner implements Runnable {
     private final SensorEventCallback sensorEventCallback;
     private final long loopTimeLength;
-    private long loopCounter = 0L;
+//    private long loopCounter = 0L;
 
-    private final static int OPTICAL_SENSE_COUNT = 2;
-    private final static double OPTICAL_SENSE_LOW_CAP = 27.0f;
-    private final static double OPTICAL_SENSE_MID_CAP = 23.0f;
+    private final static int OPTICAL_SENSE_COUNT = 10;
+    private static double OPTICAL_SENSE_LOW_CAP = 27.0f;
+    private static double OPTICAL_SENSE_MID_CAP = 23.0f;
 
     private long nextLoopTime = 0L;
     private boolean running;
@@ -44,21 +45,39 @@ public class SensorRunner implements Runnable {
             frontProximity = touchSensorFront.isPressed() ? Proximity.NEAR : frontProximity;
             SensorEvent sensorEvent = new SensorEvent(frontProximity, backProximity);
             sensorEventCallback.sendSensorEvent(sensorEvent);
-            loopCounter++;
+//            loopCounter++;
         }
     }
 
     public void runCalibrationSequence() {
-        //TODO complete
+        EventUtils.debugDisplay1("Near F Calib");
+        EventUtils.debugDisplay2("Press Center");
+        Button.ENTER.waitForPress();
+        OPTICAL_SENSE_LOW_CAP = getTrueDistance();
+
+        EventUtils.debugDisplay1("Mid F Calib");
+        Button.ENTER.waitForPress();
+        OPTICAL_SENSE_MID_CAP = getTrueDistance();
+
+        String frontResult = "Res: " +
+                OPTICAL_SENSE_LOW_CAP + " " +
+                OPTICAL_SENSE_MID_CAP;
+
+        EventUtils.debugDisplay1(frontResult);
+        Button.ENTER.waitForPress();
     }
 
     private synchronized Proximity getLightSensorProximity() {
+        double trueDistance = getTrueDistance();
+        return Proximity.getProximityDecreasing(trueDistance, OPTICAL_SENSE_LOW_CAP, OPTICAL_SENSE_MID_CAP);
+    }
+
+    private double getTrueDistance() {
         double[] measurements = new double[OPTICAL_SENSE_COUNT];
         for(int i = 0; i < measurements.length; i++) {
             measurements[i] = lightSensor.readValue();
         }
-        double trueDistance = EventUtils.getAverageDistance(measurements);
-        return Proximity.getProximityDecreasing(trueDistance, OPTICAL_SENSE_LOW_CAP, OPTICAL_SENSE_MID_CAP);
+        return EventUtils.getAverageDistance(measurements);
     }
 
     public void stop() {

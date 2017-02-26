@@ -41,7 +41,6 @@ public class RoverManager implements Runnable {
           EventUtils.debugDisplay2("");
           sensorCallback.beginCalibration();
           EventUtils.debugDisplay1("Cal Done");
-          EventUtils.debugDisplay2("");
           break;
         case MENU:
           roverState.toggleActive();
@@ -52,7 +51,7 @@ public class RoverManager implements Runnable {
           running = false;
           sensorCallback.shutDownSensors();
       }
-    } else { // No Menu
+    } else { // Main
       switch (e) {
         case EXIT:
           running = false;
@@ -87,6 +86,8 @@ public class RoverManager implements Runnable {
 
   @Override
   public void run() {
+    EventUtils.debugDisplay1("Press M to Start");
+    EventUtils.debugDisplay2("");
     running = true;
     sensorCallback.runSensors();
     while (running) {

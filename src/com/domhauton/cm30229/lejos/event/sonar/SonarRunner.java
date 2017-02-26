@@ -8,7 +8,7 @@ import lejos.nxt.*;
  * Created by dominic on 10/02/17.
  */
 public class SonarRunner implements Runnable {
-  private final static int MEASUREMENT_CNT = 5;
+  private final static int MEASUREMENT_CNT = 15;
 
   private final static int LEFT_DEGREE_OFFSET = 40;
   private final static int RIGHT_DEGREE_OFFSET = 40;
@@ -62,27 +62,38 @@ public class SonarRunner implements Runnable {
     //Near calibration
     swivelMotor.rotate(LEFT_DEGREE_OFFSET);
 
-    EventUtils.debugDisplay1("Near R Cal");
-    EventUtils.debugDisplay2("Press Enter");
+    EventUtils.debugDisplay1("Near R Calib");
+    EventUtils.debugDisplay2("Press Center");
     Button.ENTER.waitForPress();
     LEFT_NEAR_CAP = getSonarDistance();
 
-    EventUtils.debugDisplay1("Mid R Cal.");
-    EventUtils.debugDisplay2("Press Enter");
+    EventUtils.debugDisplay1("Mid R Calib");
     Button.ENTER.waitForPress();
     LEFT_MID_CAP = getSonarDistance();
 
+    String leftResult = "Res: " +
+            LEFT_NEAR_CAP + " " +
+            LEFT_MID_CAP + " ";
+
+    EventUtils.debugDisplay1(leftResult);
+    Button.ENTER.waitForPress();
+
     swivelMotor.rotate(-(LEFT_DEGREE_OFFSET + RIGHT_DEGREE_OFFSET));
 
-    EventUtils.debugDisplay1("Near L Cal");
-    EventUtils.debugDisplay2("Press Enter");
+    EventUtils.debugDisplay1("Near L Calib");
     Button.ENTER.waitForPress();
     RIGHT_NEAR_CAP = getSonarDistance();
 
-    EventUtils.debugDisplay1("Mid L Cal.");
-    EventUtils.debugDisplay2("Press Enter");
+    EventUtils.debugDisplay1("Mid L Calib.");
     Button.ENTER.waitForPress();
     RIGHT_MID_CAP = getSonarDistance();
+
+    String rightResult = "Res: " +
+            RIGHT_NEAR_CAP + " " +
+            RIGHT_MID_CAP + " ";
+
+    EventUtils.debugDisplay1(rightResult);
+    Button.ENTER.waitForPress();
 
     swivelMotor.rotate(RIGHT_DEGREE_OFFSET);
   }
