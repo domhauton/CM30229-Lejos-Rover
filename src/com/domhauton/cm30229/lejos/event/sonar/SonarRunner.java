@@ -10,8 +10,8 @@ import lejos.nxt.*;
 public class SonarRunner implements Runnable {
   private final static int MEASUREMENT_CNT = 15;
 
-  private final static int LEFT_DEGREE_OFFSET = 40;
-  private final static int RIGHT_DEGREE_OFFSET = 40;
+  private final static int LEFT_DEGREE_OFFSET = 70;
+  private final static int RIGHT_DEGREE_OFFSET = 70;
 
   private static double LEFT_NEAR_CAP = 27.0;
   private static double LEFT_MID_CAP = 35.0;
@@ -28,6 +28,8 @@ public class SonarRunner implements Runnable {
   private final NXTRegulatedMotor swivelMotor;
   private final SonarEventCallback sonarEventCallback;
 
+  private SonarEvent lastEvent;
+
   public SonarRunner(int sensorPollRate, SonarEventCallback sonarEventCallback) {
     this.sonarEventCallback = sonarEventCallback;
     this.loopTimeLength = 1000L / sensorPollRate;
@@ -35,6 +37,7 @@ public class SonarRunner implements Runnable {
     ultrasonicSensor = new UltrasonicSensor(SensorPort.S4);
     ultrasonicSensor.setMode(UltrasonicSensor.MODE_PING);
     swivelMotor = Motor.B;
+    lastEvent = new SonarEvent(Proximity.FAR, Proximity.FAR);
   }
 
   @Override
@@ -45,14 +48,18 @@ public class SonarRunner implements Runnable {
       nextLoopTime = EventUtils.rateLimitSleep(nextLoopTime, loopTimeLength);
       double leftDistance = getSonarDistance();
       Proximity leftProximity = Proximity.getProximityIncreasing(leftDistance, LEFT_NEAR_CAP, LEFT_MID_CAP);
+
+      lastEvent = new SonarEvent(leftProximity, lastEvent.getRightProximity());
+      sonarEventCallback.sendSonarEvent(lastEvent);
+
       swivelMotor.rotate(-(LEFT_DEGREE_OFFSET + RIGHT_DEGREE_OFFSET));
       double rightDistance = getSonarDistance();
       Proximity rightProximity = Proximity.getProximityIncreasing(rightDistance, RIGHT_NEAR_CAP, RIGHT_MID_CAP);
+
+      lastEvent = new SonarEvent(lastEvent.getLeftProximity(), rightProximity);
+      sonarEventCallback.sendSonarEvent(lastEvent);
+
       swivelMotor.rotate(LEFT_DEGREE_OFFSET + RIGHT_DEGREE_OFFSET);
-      SonarEvent sonarEvent = new SonarEvent(leftProximity, rightProximity);
-//      EventUtils.debugDisplay1("Sense Loop: " + loopCounter);
-//      EventUtils.debugDisplay2("L" + leftDistance + ",R" + rightDistance);
-      sonarEventCallback.sendSonarEvent(sonarEvent);
       loopCounter++;
     }
     swivelMotor.rotate(-LEFT_DEGREE_OFFSET);
