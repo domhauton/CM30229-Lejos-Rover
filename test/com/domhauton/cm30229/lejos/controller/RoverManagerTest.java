@@ -1,12 +1,13 @@
 package com.domhauton.cm30229.lejos.controller;
 
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+
 import com.domhauton.cm30229.lejos.action.actions.Action;
 import com.domhauton.cm30229.lejos.state.Direction;
 import com.domhauton.cm30229.lejos.state.RoverState;
 import com.domhauton.cm30229.lejos.util.Proximity;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
 /**
  * Created by Dominic Hauton on 21/02/17.
@@ -18,7 +19,7 @@ class RoverManagerTest {
   private RoverState crashedFrontState;
   private RoverState crashedBackState;
 
-  @BeforeEach
+  @Before
   void setUp() throws Exception {
     roverManager = new RoverManager(10, null);
 
@@ -36,27 +37,27 @@ class RoverManagerTest {
   void idleWhenInactive() throws Exception {
     Action plannedAction = roverManager.planAction(new RoverState());
 
-    Assertions.assertEquals(Action.IDLE, plannedAction);
+    Assert.assertEquals(Action.IDLE, plannedAction);
   }
 
   @Test
   void moveForwardWhenNormal() throws Exception {
     Action plannedAction = roverManager.planAction(normalState);
 
-    Assertions.assertEquals(Action.FORWARD, plannedAction);
+    Assert.assertEquals(Action.FORWARD, plannedAction);
   }
 
   @Test
   void idleWhenFrontCrash() throws Exception {
     Action plannedAction = roverManager.planAction(crashedFrontState);
 
-    Assertions.assertEquals(Action.IDLE, plannedAction);
+    Assert.assertEquals(Action.IDLE, plannedAction);
   }
 
   @Test
   void idleWhenBackCrash() throws Exception {
     Action plannedAction = roverManager.planAction(crashedBackState);
 
-    Assertions.assertEquals(Action.IDLE, plannedAction);
+    Assert.assertEquals(Action.IDLE, plannedAction);
   }
 }
