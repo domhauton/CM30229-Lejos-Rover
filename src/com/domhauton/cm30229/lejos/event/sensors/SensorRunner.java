@@ -12,9 +12,9 @@ import lejos.nxt.TouchSensor;
  */
 public class SensorRunner implements Runnable {
   private final static int OPTICAL_SENSE_COUNT = 10;
-  private static double OPTICAL_SENSE_LOW_CAP = 27.0f;
+  private static double OPTICAL_SENSE_LOW_CAP = 25.0f;
   //    private long loopCounter = 0L;
-  private static double OPTICAL_SENSE_MID_CAP = 23.0f;
+  private static double OPTICAL_SENSE_MID_CAP = 21.0f;
   private final SensorEventCallback sensorEventCallback;
   private final long loopTimeLength;
   private long nextLoopTime = 0L;
@@ -58,8 +58,8 @@ public class SensorRunner implements Runnable {
     OPTICAL_SENSE_MID_CAP = getTrueDistance();
 
     String frontResult = "Res: " +
-            OPTICAL_SENSE_LOW_CAP + " " +
-            OPTICAL_SENSE_MID_CAP;
+            (int) OPTICAL_SENSE_LOW_CAP + " " +
+            (int) OPTICAL_SENSE_MID_CAP;
 
     EventUtils.debugDisplay1(frontResult);
     Button.ENTER.waitForPress();

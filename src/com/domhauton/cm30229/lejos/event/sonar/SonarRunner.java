@@ -12,14 +12,14 @@ public class SonarRunner implements Runnable {
 
   private final static int DEGREE_OFFSET = 70;
 
-  private static double FORWARD_NEAR_CAP = 27.0;
-  private static double FORWARD_MID_CAP = 35.0;
+  private static double FORWARD_NEAR_CAP = 22.0;
+  private static double FORWARD_MID_CAP = 26.0;
 
-  private static double LEFT_NEAR_CAP = 27.0;
-  private static double LEFT_MID_CAP = 35.0;
+  private static double LEFT_NEAR_CAP = 28.0;
+  private static double LEFT_MID_CAP = 44.0;
 
-  private static double RIGHT_NEAR_CAP = 17.0;
-  private static double RIGHT_MID_CAP = 30.0;
+  private static double RIGHT_NEAR_CAP = 11.0;
+  private static double RIGHT_MID_CAP = 26.0;
 
   private final long loopTimeLength;
   private final UltrasonicSensor ultrasonicSensor;
@@ -110,35 +110,35 @@ public class SonarRunner implements Runnable {
     //Near calibration
     moveSonarTo(SonarPosition.LEFT);
 
-    EventUtils.debugDisplay1("Near Right Calib");
+    EventUtils.debugDisplay1("Near Left Calib");
     EventUtils.debugDisplay2("Press Center");
     Button.ENTER.waitForPress();
     LEFT_NEAR_CAP = getSonarDistance();
 
-    EventUtils.debugDisplay1("Mid Right Calib");
+    EventUtils.debugDisplay1("Mid Left Calib");
     Button.ENTER.waitForPress();
     LEFT_MID_CAP = getSonarDistance();
 
     String leftResult = "Res: " +
-            LEFT_NEAR_CAP + " " +
-            LEFT_MID_CAP + " ";
+            (int) LEFT_NEAR_CAP + " " +
+            (int) LEFT_MID_CAP + " ";
 
     EventUtils.debugDisplay1(leftResult);
     Button.ENTER.waitForPress();
 
     moveSonarTo(SonarPosition.RIGHT);
 
-    EventUtils.debugDisplay1("Near Left Calib");
+    EventUtils.debugDisplay1("Near Right Calib");
     Button.ENTER.waitForPress();
     RIGHT_NEAR_CAP = getSonarDistance();
 
-    EventUtils.debugDisplay1("Mid Left Calib.");
+    EventUtils.debugDisplay1("Mid Right Calib.");
     Button.ENTER.waitForPress();
     RIGHT_MID_CAP = getSonarDistance();
 
     String rightResult = "Res: " +
-            RIGHT_NEAR_CAP + " " +
-            RIGHT_MID_CAP + " ";
+            (int) RIGHT_NEAR_CAP + " " +
+            (int) RIGHT_MID_CAP + " ";
 
     EventUtils.debugDisplay1(rightResult);
     Button.ENTER.waitForPress();
@@ -154,8 +154,8 @@ public class SonarRunner implements Runnable {
     FORWARD_MID_CAP = getSonarDistance();
 
     String forwardResult = "Res: " +
-            RIGHT_NEAR_CAP + " " +
-            RIGHT_MID_CAP + " ";
+            (int) FORWARD_NEAR_CAP + " " +
+            (int) FORWARD_MID_CAP + " ";
 
     EventUtils.debugDisplay1(forwardResult);
     Button.ENTER.waitForPress();

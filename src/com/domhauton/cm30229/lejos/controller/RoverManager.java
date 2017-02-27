@@ -43,7 +43,7 @@ public class RoverManager implements Runnable {
         case MENU:
           roverState.toggleMoving();
           EventUtils.debugDisplay1("Following Wall");
-          EventUtils.debugDisplay2(roverState.getCircumnavigationDirection().toString());
+          EventUtils.debugDisplay2(roverState.getMoveWithWallOn().toString());
           break;
         case EXIT:
           running = false;
@@ -55,10 +55,10 @@ public class RoverManager implements Runnable {
           running = false;
           sensorCallback.shutDownSensors();
         case LEFT:
-          roverState.setCircumnavigationDirection(Direction.LEFT);
+          roverState.setMoveWithWallOn(Direction.LEFT);
           break;
         case RIGHT:
-          roverState.setCircumnavigationDirection(Direction.RIGHT);
+          roverState.setMoveWithWallOn(Direction.RIGHT);
           break;
         case MENU:
           if (roverState.isMoving()) {

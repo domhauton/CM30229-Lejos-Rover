@@ -17,25 +17,72 @@ public abstract class MovementManager {
    * @return Next action to be taken given state.
    */
   public static Action planAction(RoverState roverState, SensorCallback sensorCallback) {
-    boolean shouldMove = roverState.isMoving() && !roverState.isCrashed();
 
-    Proximity proximityToWall = roverState.getWallPriorityProximity();
+    Movement movement = roverState.isMoving() ? getNextMovement(roverState, sensorCallback) : Movement.IDLE;
 
-    switch (proximityToWall) {
-      case FAR:
-        roverState.setCurrentMovement(Movement.BEARING_TOWARDS_WALL);
-        sensorCallback.setSonarPriority(Direction.FRONT);
-        break;
-      case MID:
-        roverState.setCurrentMovement(Movement.FOLLOWING_WALL);
-        sensorCallback.setSonarPriority(roverState.getCircumnavigationDirection());
-        break;
-      case NEAR:
-        roverState.setCurrentMovement(Movement.BEARING_AWAY_WALL);
-        sensorCallback.setSonarPriority(roverState.getCircumnavigationDirection());
-        break;
+    if (roverState.getMoveWithWallOn() == Direction.LEFT) { // Do things on the right
+      switch (movement) {
+        case BEARING_AWAY_WALL:
+          return Action.ARC_RIGHT;
+        case BEARING_TOWARDS_WALL:
+          return Action.ARC_LEFT;
+        case FOLLOWING_WALL:
+          return Action.FORWARD;
+        case CRASH_BACK:
+          return Action.FORWARD_AND_TURN_LEFT;
+        case CRASH_FRONT:
+          return Action.BACKWARD_AND_TURN_RIGHT;
+        case IDLE:
+        default:
+          return Action.IDLE;
+      }
+    } else if (roverState.getMoveWithWallOn() == Direction.RIGHT) { // To things to the left
+      switch (movement) {
+        case BEARING_AWAY_WALL:
+          return Action.ARC_LEFT;
+        case BEARING_TOWARDS_WALL:
+          return Action.ARC_RIGHT;
+        case FOLLOWING_WALL:
+          return Action.FORWARD;
+        case CRASH_BACK:
+          return Action.FORWARD_AND_TURN_RIGHT;
+        case CRASH_FRONT:
+          return Action.BACKWARD_AND_TURN_LEFT;
+        case IDLE:
+        default:
+          return Action.IDLE;
+      }
+    } else {
+      return Action.IDLE;
     }
+  }
 
-    return shouldMove ? Action.FORWARD : Action.IDLE;
+  private static Movement getNextMovement(RoverState roverState, SensorCallback sensorCallback) {
+    if (roverState.isCrashed()) {
+      sensorCallback.setSonarPriority(Direction.FRONT);
+      boolean isCrashedBothWays = roverState.getProximity(Direction.FRONT) == Proximity.NEAR &&
+              roverState.getProximity(Direction.BACK) == Proximity.NEAR;
+      if (isCrashedBothWays) { // GIVE UP
+        return Movement.IDLE;
+      } else if (roverState.getProximity(Direction.FRONT) == Proximity.NEAR) {
+        return Movement.CRASH_FRONT;
+      } else { // Must have crashed backwards
+        return Movement.CRASH_BACK;
+      }
+    } else {
+      Proximity proximityToWall = roverState.getWallPriorityProximity();
+      switch (proximityToWall) {
+        case FAR:
+          sensorCallback.setSonarPriority(Direction.FRONT);
+          return Movement.BEARING_TOWARDS_WALL;
+        case MID:
+          sensorCallback.setSonarPriority(roverState.getMoveWithWallOn());
+          return Movement.FOLLOWING_WALL;
+        case NEAR:
+        default:
+          sensorCallback.setSonarPriority(roverState.getMoveWithWallOn());
+          return Movement.BEARING_AWAY_WALL;
+      }
+    }
   }
 }
