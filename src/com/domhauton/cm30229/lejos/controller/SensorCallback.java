@@ -2,6 +2,7 @@ package com.domhauton.cm30229.lejos.controller;
 
 import com.domhauton.cm30229.lejos.event.sensors.SensorRunner;
 import com.domhauton.cm30229.lejos.event.sonar.SonarRunner;
+import com.domhauton.cm30229.lejos.state.Direction;
 import com.domhauton.cm30229.lejos.util.EventUtils;
 
 /**
@@ -34,6 +35,24 @@ public class SensorCallback {
     } catch (InterruptedException e) {
       EventUtils.debugDisplay1("ERROR stopping");
       EventUtils.debugDisplay2("sensor runners");
+    }
+  }
+
+  public void setSonarPriority(Direction direction) {
+    switch (direction) {
+      case FRONT:
+      case BACK:
+        sonarRunner.setLeftActive(true);
+        sonarRunner.setRightActive(true);
+        break;
+      case LEFT:
+        sonarRunner.setLeftActive(true);
+        sonarRunner.setRightActive(false);
+        break;
+      case RIGHT:
+        sonarRunner.setLeftActive(false);
+        sonarRunner.setRightActive(true);
+        break;
     }
   }
 

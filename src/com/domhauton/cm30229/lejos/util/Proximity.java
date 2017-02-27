@@ -4,7 +4,15 @@ package com.domhauton.cm30229.lejos.util;
  * Created by dominic on 10/02/17.
  */
 public enum Proximity {
-  NEAR, MID, FAR;
+  NEAR(0),
+  MID(1),
+  FAR(2);
+
+  private final int rank;
+
+  Proximity(int rank) {
+    this.rank = rank;
+  }
 
   public static Proximity getProximityIncreasing(double rawValue, double nearCap, double midCap) {
     if (rawValue < nearCap) {
@@ -24,5 +32,9 @@ public enum Proximity {
     } else {
       return Proximity.FAR;
     }
+  }
+
+  public int getRank() {
+    return rank;
   }
 }

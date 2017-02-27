@@ -13,7 +13,10 @@ import java.util.List;
  */
 public class RoverState {
   private final Proximity[] proximityDirections;
+  private Proximity frontProximityLight;
+  private Proximity frontProximitySonar;
   private boolean isMoving;
+
   // Menu state
   private boolean activitySelectionActive;
   private Direction circumnavigationDirection;
@@ -28,9 +31,19 @@ public class RoverState {
     circumnavigationDirection = Direction.FRONT; //defaults to follow neither wall
     activitySelectionActive = false;
     currentMovement = Movement.IDLE;
+    frontProximitySonar = Proximity.FAR;
+    frontProximityLight = Proximity.FAR;
   }
 
-  public synchronized RoverState setProximity(Direction direction, Proximity proximity) {
+  public synchronized RoverState setProximity(Direction direction, Proximity proximity, boolean isSonar) {
+    if (direction == Direction.FRONT) {
+      if (isSonar) {
+        frontProximitySonar = proximity;
+      } else {
+        frontProximityLight = proximity;
+      }
+      proximity = frontProximityLight.getRank() < frontProximitySonar.getRank() ? frontProximityLight : frontProximitySonar;
+    }
     proximityDirections[direction.ordinal()] = proximity;
     return this;
   }

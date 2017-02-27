@@ -8,10 +8,12 @@ import com.domhauton.cm30229.lejos.util.Proximity;
 public class SonarEvent {
   private final Proximity leftProximity;
   private final Proximity rightProximity;
+  private final Proximity forwardProximity;
 
-  public SonarEvent(Proximity leftProximity, Proximity rightProximity) {
+  SonarEvent(Proximity leftProximity, Proximity rightProximity, Proximity forwardProximity) {
     this.leftProximity = leftProximity;
     this.rightProximity = rightProximity;
+    this.forwardProximity = forwardProximity;
   }
 
   public Proximity getLeftProximity() {
@@ -20,5 +22,9 @@ public class SonarEvent {
 
   public Proximity getRightProximity() {
     return rightProximity;
+  }
+
+  public Proximity getForwardProximity() {
+    return forwardProximity;
   }
 }

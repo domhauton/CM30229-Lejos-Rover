@@ -56,8 +56,10 @@ public class RoverManager implements Runnable {
           sensorCallback.shutDownSensors();
         case LEFT:
           roverState.setCircumnavigationDirection(Direction.LEFT);
+          break;
         case RIGHT:
           roverState.setCircumnavigationDirection(Direction.RIGHT);
+          break;
         case MENU:
           if (roverState.isMoving()) {
             roverState.toggleMoving();
@@ -73,13 +75,20 @@ public class RoverManager implements Runnable {
   }
 
   public void sensorEvent(SensorEvent event) {
-    roverState.setProximity(Direction.BACK, event.getBackProximity());
-    roverState.setProximity(Direction.FRONT, event.getFrontProximity());
+    roverState.setProximity(Direction.BACK, event.getBackProximity(), false);
+    roverState.setProximity(Direction.FRONT, event.getFrontProximity(), false);
   }
 
   public void sonarEvent(SonarEvent event) {
-    roverState.setProximity(Direction.LEFT, event.getLeftProximity());
-    roverState.setProximity(Direction.RIGHT, event.getRightProximity());
+    if (event.getLeftProximity() != null) {
+      roverState.setProximity(Direction.LEFT, event.getLeftProximity(), true);
+    }
+    if (event.getRightProximity() != null) {
+      roverState.setProximity(Direction.RIGHT, event.getRightProximity(), true);
+    }
+    if (event.getForwardProximity() != null) {
+      roverState.setProximity(Direction.FRONT, event.getForwardProximity(), true);
+    }
   }
 
   @Override
@@ -90,7 +99,7 @@ public class RoverManager implements Runnable {
     sensorCallback.runSensors();
     while (running) {
       nextLoopTime = EventUtils.rateLimitSleep(nextLoopTime, loopTimeLength);
-      Action nextAction = MovementManager.planAction(roverState);
+      Action nextAction = MovementManager.planAction(roverState, sensorCallback);
       actionManager.executeAction(nextAction);
       printState();
       loopCounter++;

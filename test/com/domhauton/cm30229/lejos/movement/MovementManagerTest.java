@@ -23,36 +23,36 @@ class MovementManagerTest {
             .toggleMoving();
     crashedFrontState = new RoverState()
             .toggleMoving()
-            .setProximity(Direction.FRONT, Proximity.NEAR);
+            .setProximity(Direction.FRONT, Proximity.NEAR, true);
     crashedBackState = new RoverState()
             .toggleMoving()
-            .setProximity(Direction.FRONT, Proximity.NEAR);
+            .setProximity(Direction.FRONT, Proximity.NEAR, true);
   }
 
   @Test
   void idleWhenInactive() throws Exception {
-    Action plannedAction = MovementManager.planAction(new RoverState());
+    Action plannedAction = MovementManager.planAction(new RoverState(), null);
 
     Assertions.assertEquals(Action.IDLE, plannedAction);
   }
 
   @Test
   void moveForwardWhenNormal() throws Exception {
-    Action plannedAction = MovementManager.planAction(normalState);
+    Action plannedAction = MovementManager.planAction(normalState, null);
 
     Assertions.assertEquals(Action.FORWARD, plannedAction);
   }
 
   @Test
   void idleWhenFrontCrash() throws Exception {
-    Action plannedAction = MovementManager.planAction(crashedFrontState);
+    Action plannedAction = MovementManager.planAction(crashedFrontState, null);
 
     Assertions.assertEquals(Action.IDLE, plannedAction);
   }
 
   @Test
   void idleWhenBackCrash() throws Exception {
-    Action plannedAction = MovementManager.planAction(crashedBackState);
+    Action plannedAction = MovementManager.planAction(crashedBackState, null);
 
     Assertions.assertEquals(Action.IDLE, plannedAction);
   }
