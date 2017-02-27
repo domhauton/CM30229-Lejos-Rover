@@ -9,6 +9,6 @@ class Rotate180 implements ExecutableAction {
 
   @Override
   public void execute(MovementController movementController) {
-    movementController.getDifferentialPilot().rotate(180);
+    movementController.halfSpin();
   }
 }

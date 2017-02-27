@@ -22,7 +22,7 @@ public class Main {
     new PanelButtonListener(panelEventCallback);
 
     SensorEventCallback sensorEventCallback = new SensorEventCallback(roverManager);
-    SensorRunner sensorRunner = new SensorRunner(10, sensorEventCallback);
+    SensorRunner sensorRunner = new SensorRunner(30, sensorEventCallback);
 
 
     SonarEventCallback sonarEventCallback = new SonarEventCallback(roverManager);

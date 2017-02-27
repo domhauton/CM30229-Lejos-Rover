@@ -54,14 +54,16 @@ public class SonarRunner implements Runnable {
     while (running) {
       nextLoopTime = EventUtils.rateLimitSleep(nextLoopTime, loopTimeLength);
 
-      scanForward();
-      if (leftActive) {
-        scanLeft();
-      }
-      if (leftActive && rightActive) {
+      if (running) {
         scanForward();
       }
-      if (rightActive) {
+      if (leftActive && running) {
+        scanLeft();
+      }
+      if (leftActive && rightActive && running) {
+        scanForward();
+      }
+      if (rightActive && running) {
         scanRight();
       }
 //      loopCounter++;

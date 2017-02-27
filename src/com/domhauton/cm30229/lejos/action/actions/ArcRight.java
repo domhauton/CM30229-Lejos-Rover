@@ -3,12 +3,11 @@ package com.domhauton.cm30229.lejos.action.actions;
 import com.domhauton.cm30229.lejos.action.movement.MovementController;
 
 /**
- * Created by Ryan Cullen on 23/02/17.
+ * Created by Dominic Hauton on 27/02/17.
  */
-class RotateLeft implements ExecutableAction {
-
+public class ArcRight implements ExecutableAction {
   @Override
   public void execute(MovementController movementController) {
-    movementController.getDifferentialPilot().rotate(-90);
+    movementController.arcRight();
   }
 }

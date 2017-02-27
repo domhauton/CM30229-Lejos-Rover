@@ -8,25 +8,45 @@ import lejos.robotics.navigation.DifferentialPilot;
  * Created by Dominic Hauton on 21/02/17.
  */
 public class MovementController {
-  private final NXTRegulatedMotor motorLeft;
-  private final NXTRegulatedMotor motorRight;
+  private final static int SMALL_TURN_DISTANCE = 20;
+  private final static double ARC_RADIUS = 200.0f;
   private final DifferentialPilot differentialPilot;
 
   public MovementController() {
-    motorLeft = Motor.A;
-    motorRight = Motor.C;
-    differentialPilot = new DifferentialPilot(56, 109, motorLeft, motorRight);
+    NXTRegulatedMotor motorLeft = Motor.A;
+    NXTRegulatedMotor motorRight = Motor.C;
+    differentialPilot = new DifferentialPilot(56, 102, motorLeft, motorRight);
   }
 
-  public NXTRegulatedMotor getMotorLeft() {
-    return motorLeft;
+  public void moveForward() {
+    differentialPilot.forward();
   }
 
-  public NXTRegulatedMotor getMotorRight() {
-    return motorRight;
+  public void moveBackward() {
+    differentialPilot.backward();
   }
 
-  public DifferentialPilot getDifferentialPilot() {
-    return differentialPilot;
+  public void stop() {
+    differentialPilot.stop();
+  }
+
+  public void halfSpin() {
+    differentialPilot.rotate(180);
+  }
+
+  public void smallLeftTurn() {
+    differentialPilot.rotate(-SMALL_TURN_DISTANCE);
+  }
+
+  public void smallRightTurn() {
+    differentialPilot.rotate(SMALL_TURN_DISTANCE);
+  }
+
+  public void arcRight() {
+    differentialPilot.arcForward(ARC_RADIUS);
+  }
+
+  public void arcLeft() {
+    differentialPilot.arcForward(-ARC_RADIUS);
   }
 }

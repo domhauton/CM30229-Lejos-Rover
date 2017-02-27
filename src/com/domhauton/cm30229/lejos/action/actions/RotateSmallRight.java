@@ -3,11 +3,12 @@ package com.domhauton.cm30229.lejos.action.actions;
 import com.domhauton.cm30229.lejos.action.movement.MovementController;
 
 /**
- * Created by Dominic Hauton on 21/02/17.
+ * Created by Ryan Cullen on 23/02/17.
  */
-class MoveForward implements ExecutableAction {
+class RotateSmallRight implements ExecutableAction {
+
   @Override
   public void execute(MovementController movementController) {
-    movementController.moveForward();
+    movementController.smallRightTurn();
   }
 }
