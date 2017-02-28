@@ -115,11 +115,21 @@ public class RoverManager implements Runnable {
     // Check front proximity
     switch (frontProximity) {
     case NEAR:
+    	switch (currentWallPriority)  {
+    	case LEFT:
+    		return Action.REVERSE_ROTATERIGHT;
+    	case FRONT:
+    		if (getCloserSide(leftProximity, rightProximity).equals(Direction.LEFT)) {
+    			return Action.REVERSE_ROTATERIGHT;
+    		}
+    	case RIGHT:
+    		return Action.REVERSE_ROTATELEFT;
+    	}
     	return Action.REVERSE_ROTATERIGHT;
-    	
     case MID:
+    case FAR:
     	//check left right
-    	switch(currentWallPriority) {
+    	/*switch(currentWallPriority) {
     	case LEFT:
     		return Action.ROTATE_RIGHT;
     	case RIGHT:
@@ -131,19 +141,15 @@ public class RoverManager implements Runnable {
     			return Action.ROTATE_LEFT;
     		}
     	default:break;
-    	}
+    	}*/
    
     default:break;
     }
-    if (frontProximity.equals(Proximity.NEAR)) {
-    	return Action.BACKWARD_STEP;
-    }
-    
     	
     /*Checks if the high priority wall is further away, and if so it acts accordingly
      to correct it.*/
     
-    /*switch (currentWallPriority) {
+    switch (currentWallPriority) {
       case LEFT:
         switch (rightProximity) {
           case NEAR:
@@ -178,7 +184,7 @@ public class RoverManager implements Runnable {
         break;
       default:
         break;
-    }*/
+    }
 
     boolean hasCrashed = currentRoverState.getProximity(Direction.FRONT).equals(Proximity.NEAR)
             || currentRoverState.getProximity(Direction.BACK).equals(Proximity.NEAR);

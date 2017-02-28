@@ -39,7 +39,7 @@ public class SensorCallback {
 
     void beginCalibration() {
         shutDownSensors();
-        //sonarRunner.runCalibrationSequence();
+        sonarRunner.runCalibrationSequence();
         sensorRunner.runCalibrationSequence();
         runSensors();
     }
