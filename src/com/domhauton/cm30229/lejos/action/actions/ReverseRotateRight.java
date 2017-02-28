@@ -10,6 +10,6 @@ class ReverseRotateRight implements ExecutableAction {
 	@Override
 	public void execute(MovementController movementController) {
 		movementController.getDifferentialPilot().travel(-150);
-		movementController.getDifferentialPilot().rotate(90);
+		movementController.getDifferentialPilot().rotate(120);
 	}
 }

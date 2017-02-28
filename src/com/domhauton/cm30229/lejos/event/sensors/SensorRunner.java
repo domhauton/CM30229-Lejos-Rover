@@ -16,8 +16,8 @@ public class SensorRunner implements Runnable {
 //    private long loopCounter = 0L;
 
     private final static int OPTICAL_SENSE_COUNT = 10;
-    private static double OPTICAL_SENSE_LOW_CAP = 27.0f;
-    private static double OPTICAL_SENSE_MID_CAP = 23.0f;
+    private static double OPTICAL_SENSE_LOW_CAP = 33.0f;
+    private static double OPTICAL_SENSE_MID_CAP = 36.0f;
 
     private long nextLoopTime = 0L;
     private boolean running;

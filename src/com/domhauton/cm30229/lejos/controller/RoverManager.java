@@ -106,50 +106,79 @@ public class RoverManager implements Runnable {
    */
   Action planAction(RoverState currentRoverState) {
 
-//    Direction currentWallPriority = roverState.getWallPriority();
-//    Proximity leftProximity = roverState.getProximity(Direction.LEFT);
-//    Proximity rightProximity = roverState.getProximity(Direction.RIGHT);
+    Direction currentWallPriority = roverState.getWallPriority();
+    Proximity leftProximity = roverState.getProximity(Direction.LEFT);
+    Proximity rightProximity = roverState.getProximity(Direction.RIGHT);
+    Proximity frontProximity = roverState.getProximity(Direction.FRONT);
+    Proximity backProximity = roverState.getProximity(Direction.BACK);
+    
+    // Check front proximity
+    switch (frontProximity) {
+    case NEAR:
+    	return Action.REVERSE_ROTATERIGHT;
+    	
+    case MID:
+    	//check left right
+    	switch(currentWallPriority) {
+    	case LEFT:
+    		return Action.ROTATE_RIGHT;
+    	case RIGHT:
+    		return Action.ROTATE_LEFT;
+    	case FRONT:
+    		if(getCloserSide(leftProximity, rightProximity).equals(Direction.LEFT)) {
+    			return Action.ROTATE_RIGHT;
+    		} else {
+    			return Action.ROTATE_LEFT;
+    		}
+    	default:break;
+    	}
+   
+    default:break;
+    }
+    if (frontProximity.equals(Proximity.NEAR)) {
+    	return Action.BACKWARD_STEP;
+    }
+    
+    	
+    /*Checks if the high priority wall is further away, and if so it acts accordingly
+     to correct it.*/
+    
+    /*switch (currentWallPriority) {
+      case LEFT:
+        switch (rightProximity) {
+          case NEAR:
+            if (leftProximity.equals(Proximity.MID)) {
+              return Action.ROTATE_180;
+            }
+          case MID:
+            if (leftProximity.equals(Proximity.FAR)) {
+              return Action.ROTATE_180;
+            }
+            break;
+          default:
+            break;
+        }
 
-//    	/*
-//    	 * Checks if the high priority wall is further away, and if so it acts accordingly
-//    	 * to correct it.
-//    	 */
-//    switch (currentWallPriority) {
-//      case LEFT:
-//        switch (rightProximity) {
-//          case NEAR:
-//            if (leftProximity.equals(Proximity.MID)) {
-//              return Action.ROTATE_180;
-//            }
-//          case MID:
-//            if (leftProximity.equals(Proximity.FAR)) {
-//              return Action.ROTATE_180;
-//            }
-//            break;
-//          default:
-//            break;
-//        }
-//
-//        break;
-//      case RIGHT:
-//        switch (leftProximity) {
-//          case NEAR:
-//            if (rightProximity.equals(Proximity.MID)) {
-//              return Action.ROTATE_180;
-//            }
-//          case MID:
-//            if (rightProximity.equals(Proximity.FAR)) {
-//              return Action.ROTATE_180;
-//            }
-//            break;
-//          default:
-//            break;
-//        }
-//
-//        break;
-//      default:
-//        break;
-//    }
+        break;
+      case RIGHT:
+        switch (leftProximity) {
+          case NEAR:
+            if (rightProximity.equals(Proximity.MID)) {
+              return Action.ROTATE_180;
+            }
+          case MID:
+            if (rightProximity.equals(Proximity.FAR)) {
+              return Action.ROTATE_180;
+            }
+            break;
+          default:
+            break;
+        }
+
+        break;
+      default:
+        break;
+    }*/
 
     boolean hasCrashed = currentRoverState.getProximity(Direction.FRONT).equals(Proximity.NEAR)
             || currentRoverState.getProximity(Direction.BACK).equals(Proximity.NEAR);
@@ -157,6 +186,35 @@ public class RoverManager implements Runnable {
     boolean shouldMove = currentRoverState.isActive() && !hasCrashed;
 
     return shouldMove ? Action.FORWARD : Action.IDLE;
+  }
+  
+  private Direction getCloserSide(Proximity left, Proximity right) {
+    switch (right) {
+      case NEAR:
+        if (left.equals(Proximity.MID)) {
+          return Direction.RIGHT;
+        }
+      case MID:
+        if (left.equals(Proximity.FAR)) {
+          return Direction.RIGHT;
+        }
+        break;
+      default: break;
+    }
+    
+    switch (left) {
+      case NEAR:
+        if (right.equals(Proximity.MID)) {
+          return Direction.LEFT;
+        }
+      case MID:
+        if (right.equals(Proximity.FAR)) {
+          return Direction.LEFT;
+        }
+        break;
+      default: break;
+    }
+    return Direction.LEFT;//both far
   }
 
   private void printState() {
