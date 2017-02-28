@@ -9,7 +9,9 @@ public enum Action {
   BACKWARD(new MoveBackward()),
   BACKWARD_STEP(new BackwardStep()),
   ROTATE_LEFT(new RotateLeft()),
+  REVERSE_ROTATELEFT(new ReverseRotateLeft()),
   ROTATE_RIGHT(new RotateRight()),
+  REVERSE_ROTATERIGHT(new ReverseRotateRight()),
   ROTATE_180(new Rotate180()),
   IDLE(new Idle());
 

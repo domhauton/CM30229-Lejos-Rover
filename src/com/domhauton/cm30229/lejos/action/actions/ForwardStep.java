@@ -8,7 +8,6 @@ import com.domhauton.cm30229.lejos.action.movement.MovementController;
 class ForwardStep implements ExecutableAction {
   @Override
   public void execute(MovementController movementController) {
-    movementController.getMotorLeft().rotate(90);
-    movementController.getMotorRight().rotate(90);
+	  movementController.getDifferentialPilot().travel(150);
   }
 }
