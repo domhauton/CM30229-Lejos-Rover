@@ -22,7 +22,7 @@ public class RoverState {
   public RoverState() {
     proximityDirections = new Proximity[Direction.values().length];
     Arrays.fill(proximityDirections, Proximity.FAR);
-    moveWithWallOn = Direction.FRONT; //defaults to follow neither wall
+    moveWithWallOn = Direction.LEFT;
     activitySelectionActive = false;
     frontProximitySonar = Proximity.FAR;
     frontProximityLight = Proximity.FAR;

@@ -8,11 +8,11 @@ import lejos.robotics.navigation.DifferentialPilot;
  * Created by Dominic Hauton on 21/02/17.
  */
 public class MovementController {
-  private final static int SMALL_TURN_DISTANCE = 50;
+  private final static int SMALL_TURN_DISTANCE = 25;
   private final static double ARC_RADIUS = 400.0f;
-  private final static int SMALL_TRAVEL = 50;
+  private final static int SMALL_TRAVEL = 30;
 
-  private final static double TRAVEL_SPEED = 1.0;
+  private final static double TRAVEL_SPEED = 100.0;
 
   private final DifferentialPilot differentialPilot;
 
@@ -32,7 +32,7 @@ public class MovementController {
   }
 
   public void stop() {
-    differentialPilot.stop();
+    differentialPilot.quickStop();
   }
 
   public void halfSpin() {

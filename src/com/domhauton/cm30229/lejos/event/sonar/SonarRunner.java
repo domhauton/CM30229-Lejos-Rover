@@ -8,15 +8,15 @@ import lejos.nxt.*;
  * Created by dominic on 10/02/17.
  */
 public class SonarRunner implements Runnable {
-  private final static int MEASUREMENT_CNT = 15;
+  private final static int MEASUREMENT_CNT = 7;
 
-  private final static int DEGREE_OFFSET = 70;
+  private final static int DEGREE_OFFSET = 90;
 
-  private static double FORWARD_NEAR_CAP = 22.0;
-  private static double FORWARD_MID_CAP = 26.0;
+  private static double FORWARD_NEAR_CAP = 24.0;
+  private static double FORWARD_MID_CAP = 28.0;
 
-  private static double LEFT_NEAR_CAP = 28.0;
-  private static double LEFT_MID_CAP = 44.0;
+  private static double LEFT_NEAR_CAP = 25.0;
+  private static double LEFT_MID_CAP = 36.0;
 
   private static double RIGHT_NEAR_CAP = 11.0;
   private static double RIGHT_MID_CAP = 26.0;

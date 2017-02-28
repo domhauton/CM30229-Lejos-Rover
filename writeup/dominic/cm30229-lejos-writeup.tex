@@ -1,4 +1,4 @@
-\documentclass[a4paper,10pt]{report}
+\documentclass[a4paper,12pt]{report}
 \usepackage[utf8]{inputenc}
 
 % Title Page
@@ -13,10 +13,25 @@
 \end{abstract}
 
 \section{Introduction}
-% The Introduction should give a brief description of what you have done, and also give some idea
-% about why you have done it (motivation). I expect you to cite a paper or two for the research context.
-% For coursework 1, one of the papers you should probably cite is Brooks (1991), since you have been
-% asked to take a fairly reactive approach to developing robot intelligence.
+% All of your courseworks are designed primarily to give you experience in developing intelligent control
+% and/or cognitive systems. However, the course is also intended to give you experience and feedback
+% in writing about research. To this end, you will be writing research reports of about two pages, using
+% exactly this format.
+
+% The Introduction of a research report should give a brief description of what you you tried to
+% do (your hypothesis), and the outcome. It should also give some idea about why you have done it
+% (motivation). In doing this, you may also give a brief background argument. I expect you to cite a
+% paper or two for this motivational context. For coursework 1, one of the papers you should probably
+% cite is Brooks (1991), since you have been asked to take a fairly reactive approach to developing robot
+% intelligence.
+
+% Coursework one requires you to construct a robot capable of circumnavigating rooms or other
+% closed spaces (don’t worry about doorways – just close or block them.) Ideally this should work in
+% “natural” (unaltered) indoor environments with a variety of obstacles along the walls, but often people
+% build up some barriers. However, the report should not be about the entire experience of building a
+% robot, but rather it should present a single hypothesis you tested on your completed robot about how
+% to improve its intelligence.
+
 
 \section{Approach}
 
@@ -26,24 +41,32 @@
 % your experiments. You may cite other papers here too if you are taking an approach from another
 % paper, or modifying it only slightly.
 
-% Courswork one is to construct a robot capable of circumnavigating rooms or other closed spaces
-% (don’t worry about doorways – just close or block them.) Ideally this should work in “natural” (unaltered)
-% indoor environments with a variety of obstacles along the walls. To quantify the outcomes of
-% this coursework, you may want to think about questions such as contrasting the addition of extra control
-% algorithms vs. changing the physical shape of the robot for increasing circuit time for the robot, or
-% trying different target sonar readings for maintaining a particular distance from the wall in a variety of
-% contexts. For coursework one it is quite likely that you will not have initially thought of a hypothesis
-% to test, but will rather just have tried to make the robot work. However, in your exploration (both
-% with the robot and with the reading) if you do find something that seems to make a difference, you
-% should go try to capture what that something is. Can you describe it exactly? Can you replicate it with
-% different robot configurations? Can you quantify how much improvement you get given how much
-% change to some parameter on the robot? Don’t forget to consider things such as the state of battery
-% charge or whether you are operating in daylight or in proximity to other sonar-using robots as possible
-% explanations for strange behaviour.
-
 % Please do mention who shared your robot in the approach section, and the extent to which you
 % worked together. The objective here is to learn. How much you work together is totally up to you so
 % long as you each write your report independently.
+
+% Submissions should be in PDF or HTML, preferably derived from this latex format, certainly in 12
+% point font. I recommend making HTML by using latex plus htlatex, but you can construct your report
+% using any tool you please. Note that this specification is exactly 2 pages long, so an HTML report
+% should be no longer than this. Figures (both drawn plans and photos) are encouraged for marks and
+% clarity and do not count either for or against page length. The 1–2 pages are counting text only (not
+% citations). But remember, don’t spend too much time on this coursework! You should spend about
+% 19 hours total on each coursework, about 4 of which will be writing up. The coursework should be
+% uploaded to Moodle by 11pm on Friday 3 March at the latest, but feel free to submit it (much) sooner.
+% To quantify the outcomes of this coursework, you may want to think about questions such as contrasting
+% the addition of extra control algorithms, changing the physical shape of the robot, or trying
+% different target sonar readings for maintaining a particular distance from the wall in a variety of contexts.
+% These can be quantified in terms of the circuit time for the robot, the success rate, or any other
+% metric you can think of.
+
+% For coursework one, it is quite likely that you will not have initially thought of a hypothesis to
+% test, but will rather just have tried to make the robot work. However, in your exploration (both with
+% the robot and with your reading) you should always be looking to something that seems to make a
+% difference in performance, and then try to capture what that something is. Can you describe it exactly?
+% Can you replicate it with different robot configurations? Can you quantify how much improvement
+% you get given how much change you make to some parameter on the robot? Don’t forget to consider
+% things such as the battery charge, operating in daylight, or proximity to other sonar-using robots as
+% possible explanations for strange behaviour.
 
 \section{Results}
 
@@ -52,7 +75,7 @@
 % average speed around a circuit in two conditions plus standard deviations and a significance test to tell
 % whether you have evidence that the conditions lead to different results. For coursework 1, this must
 % include video. Typically, the results section can be surprisingly short, since the Approach section is
-% the one giving details. Results are purely and only factual outcomes.
+% the one giving details. Results are purely and only factual outcomes (no alternative facts).
 
 % With respect to your personal results, if you describe a reasonably-well working system in a comprehensible
 % manner you will pass. If you competently fill in all of these sections as described in this
@@ -62,19 +85,21 @@
 % get you these extra marks. So might a particularly accurate and replicable account of your approach
 % and results.
 
+% https://www.youtube.com/watch?v=LOPdO0w1Uec
+
 \section{Discussion}
 
 % The discussion is the most discursive part of your paper, it may include speculation. You should
 % discuss the extent to which your results addressed the questions described in your introduction, and
 % what the results imply about your own work and AI or robotics more broadly. You might suggest other
 % experimental protocols that could have given different results and lessons learned. This can be a longer
-% section as well.
+% section, and may again include citations if you compare or contrast to other published accounts.
 
 \section{Conclusion}
 
 % The conclusion is just one paragraph. After possible digressions in the discussion, you should come
-% back to state exactly what you tried to do (brief summary of the introduction), what the outcome was
+% back to restate exactly what you tried to do (brief summary of the introduction), what the outcome was
 % (brief summary of the results), and what you can certainly state as a result of this (the implications of
 % the results in light of the introduction.)
 
-\end{document}          
+\end{document}

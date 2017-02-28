@@ -29,7 +29,7 @@ public abstract class MovementManager {
         case FOLLOWING_WALL:
           return Action.FORWARD;
         case CRASH_BACK:
-          return Action.FORWARD_AND_TURN_LEFT;
+          return Action.FORWARD_AND_TURN_RIGHT;
         case CRASH_FRONT:
           return Action.BACKWARD_AND_TURN_RIGHT;
         case IDLE:
@@ -45,7 +45,7 @@ public abstract class MovementManager {
         case FOLLOWING_WALL:
           return Action.FORWARD;
         case CRASH_BACK:
-          return Action.FORWARD_AND_TURN_RIGHT;
+          return Action.FORWARD_AND_TURN_LEFT;
         case CRASH_FRONT:
           return Action.BACKWARD_AND_TURN_LEFT;
         case IDLE:
@@ -63,7 +63,7 @@ public abstract class MovementManager {
       boolean isCrashedBothWays = roverState.getProximity(Direction.FRONT) == Proximity.NEAR &&
               roverState.getProximity(Direction.BACK) == Proximity.NEAR;
       if (isCrashedBothWays) { // GIVE UP
-        return Movement.IDLE;
+        return Movement.CRASH_BACK;
       } else if (roverState.getProximity(Direction.FRONT) == Proximity.NEAR) {
         return Movement.CRASH_FRONT;
       } else { // Must have crashed backwards
