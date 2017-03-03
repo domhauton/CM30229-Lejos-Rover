@@ -22,9 +22,9 @@
 
 % Coursework one requires you to construct a robot capable of circumnavigating rooms or other closed spaces (don’t worry about doorways – just close or block them.) Ideally this should work in “natural” (unaltered) indoor environments with a variety of obstacles along the walls, but often people build up some barriers. However, the report should not be about the entire experience of building a robot, but rather it should present a single hypothesis you tested on your completed robot about how to improve its intelligence.
 
-The goal of this research is to see the effect of changing the rate of sensing on the navigation capabilities of the rover while circumnavigating a room. The rover was built using parts from the LEGO Mindstorm NXJ kit. There were 3 sensors; a \emph{Sonar}, \emph{Light Sensor} and \emph{Bump Sensor} (x3). Three motors were provided for movement and navigation.
+The goal of this research is to see the effect of changing the rate of sensing on the navigation capabilities of a rover. The rover is built using parts from the LEGO Mindstorm NXJ kit. Four sensors are utilised for sensing; a \emph{Sonar}, \emph{Light Sensor} and \emph{Bump Sensor} (x2), and Three motors provide movement.
 
-To make informed decisions all of the sensors were used and the sonar was mounted on a pivot to allow for measurements in multiple directions, as shown in figure \ref{fig:stanley-head}. To provide movement two driven wheels were used and a trolley wheel was placed at the back for stability.
+The sonar is mounted on a pivot to allow for measurements in multiple directions, as shown in figure \ref{fig:stanley-head}. Two driven wheels are used for drive and a trolley wheel is placed at the back for stability.
 
 \begin{figure}[b]
  \includegraphics[width=0.5\textwidth]{headshot}
@@ -32,7 +32,7 @@ To make informed decisions all of the sensors were used and the sonar was mounte
  \label{fig:stanley-head}
 \end{figure}
 
-During development a reactive approach was taken, using the subsumption architecture \citep{wooldridge2009introduction} with emphasis on sensing using multiple layers of perception to allow for informed movement decisions. The use of the subsumption architecture was based on Brooks' thesis that Intelligence is an emergent property of certain complex systems. \citep{brooks1991intelligence} During development this subsumption approach was added into the perception mechanism, during which the rover had to to decide on it's current situation.
+During development a reactive approach is taken, using the subsumption architecture \citep{wooldridge2009introduction} with emphasis on sensing using multiple layers of perception to allow for informed movement decisions. The use of the subsumption architecture is based on Brooks' thesis that Intelligence is an emergent property of certain complex systems. \citep{brooks1991intelligence} During development this subsumption approach is added into the perception mechanism, to help the rover understand it's current situation.
 
 \section{Approach}
 
@@ -46,9 +46,13 @@ During development a reactive approach was taken, using the subsumption architec
 
 % For coursework one, it is quite likely that you will not have initially thought of a hypothesis to test, but will rather just have tried to make the robot work. However, in your exploration (both with the robot and with your reading) you should always be looking to something that seems to make a difference in performance, and then try to capture what that something is. Can you describe it ex you get given how much change you make to some parameter on the robot? Don’t forget to consider things such as the battery charge, operating in daylight, or proximity to other sonar-using robots as possible explanations for strange behaviour.
 
-The initial design of the rover was a simple reflex agent as described by \cite{russell1995modern}. This took the sensor readings, and using transduction converted them to a proximity reading in every direction. This allowed to rover to react to a crash but when recovering from a crash the rover had no context. As a result I settled on \cite{russell1995modern}'s model-based reflex agent. This allows the sensors to modify the state at individual rates, in the final design there were two sensing thread loops, operating at different tick rates, as shown in figure \ref{fig:perception}. One for the sonar which provided slow but accurate readings and one for the other sensors which provided almost instantaneous measurements.
+The initial design of the rover is a simple reflex agent as described by \cite{russell1995modern}. This takes numerical sensor readings, and uses transduction converting them to an qualitative proximity label in every direction, making immediate decisions based on these readings. This allows the rover to react to a crash but gives no context for recovery.
 
-All of the sensor readings were mixed and the closest reading was taken. This was especially important for the front sensor where 3 separate readings were taken from the bump, light and sonar sensor. To improve sensor quality 15 readings were taken every measurement and any reading more than two standard deviations away from the mean were thrown out, and the remainder of the readings were averaged.
+The final design uses \cite{russell1995modern}'s model-based reflex agent. This allows the sensors to modify the state at individual rates. There are two sensing thread loops as shown in figure \ref{fig:perception}. This is done to prevent the sonar slowing down other sensors.
+
+As the front sensor uses three\footnote{Bump, light and sonar sensor} separate sensors for proximity detection, the closest, most important result is taken. To improve sensor quality 15 readings are taken every measurement and any reading more than two standard deviations away from the mean is thrown out. The remainder of the readings are averaged.
+
+To account for arena variances, a calibration routine is used. This requests certain rover placements a certain distance from the arena wall on each side.
 
 \begin{figure}
  \includegraphics[width=0.5\textwidth]{sensing-diagram}
@@ -56,21 +60,23 @@ All of the sensor readings were mixed and the closest reading was taken. This wa
  \label{fig:perception}
 \end{figure}
 
-In order to control the rover a third thread was started. This read the state and converted the state into a meta-state for the rover. An example of such a state was \emph{TOO\_CLOSE\_TO\_WALL} or \emph{WALL\_NOT\_FOUND}. To determine this state a subsumption architecture used. For example, if the rover was \emph{NEAR} something to the front, it had crashed and it did not matter that \emph{NEAR} an object on the left too. This meta-state was then used in the action planner, which selected the best appropriate action given a meta-state and current states. If the rover was crashed and it was \emph{NEAR} an object to the left. It shouldn't try to reverse to the left.
+A decision loop reads the state and determines a meta-state\footnote{Such as \emph{TOO\_CLOSE\_TO\_WALL} or \emph{WALL\_NOT\_FOUND}.} from the current state using a subsumption architecture. If the rover is \emph{NEAR} something to the front, it has crashed and it does not matter that it is \emph{NEAR} an object on the left too. This meta-state is then used in the action planner, which selects the best action given a meta-state. If the rover is crashed and it is \emph{NEAR} an object to the left, it should not try to reverse to the left.
 
-In addition the meta-state could direct the sonar. If it was following a wall on the left and had found the wall, it could just look left and forward for faster readings. There was no need to update the RHS. This basic system describes the platform for experimentation. The goal was to find if there was an optimal sensing rate.
+The meta-state also directs the sonar. If it is following a wall on the left and has found the wall, it skips the reading on the right as it is irrelevant to the navigation. This system describes the platform for experimentation. The goal is to find if there is an optimal sensing rate.
 
-The rover was run at a tick rate (measurements per second) of 5, 25 and 45. To rate the rover performance during each experiment I measured the number of impacts with the wall as well as marking the number of times it was stuck while navigating the test track shown in fig \ref{fig:area}. The hypothesis is that the rover will perform better with a higher tick rate, but after a certain level, increasing it will no longer have an effect. The former measurement was recorded in software and the later was done by observation. If the rover was stuck in a corner, the experiment was restarted. During each run, the rover was started in the bottom left hand corner of the arena facing the left wall.
+The rover is run at a tick rate (measurements per second) of 5, 25 and 45. During a run the rover performs 10 laps of the test track (fig. \ref{fig:area}), and the number of bump sensor activations was recorded programmatically.
 
-\begin{figure}
+Each run is done twice. The hypothesis is that the rover will perform better with a higher tick rate, but with diminishing returns. If the rover is stuck in a corner, the experiment is restarted. During each run, the rover is started in the bottom left hand corner of the arena facing the left wall. The experiment is conducted with a variety of obstacle types and sizes to produce a generalised result.
+
+\begin{figure}[t]
  \includegraphics[width=0.5\textwidth]{test-area-layout}
  \caption{Test Area Layout}
  \label{fig:area}
 \end{figure}
 
-Throughout the research the rover was shared with Ryan Cullen. In the first part of the coursework the rover resided in my house. I built the rover itself, optimising it's design over several iterations and created the perception system of the code. The software continuously modified proximity readings in the state, indicating how close the rover was to an object in all four cardinal directions. At this point the code was then forked by Ryan and we each developed our own action selection code based on the rover state.
+The rover was shared with Ryan Cullen. I built the rover itself, optimising it's design and created the perception system in the code. The software continuously modified proximity readings in the state, indicating how close the rover was to an object in all four cardinal directions. At this point the code was then forked by Ryan and we each developed our own action selection code based on the rover state.
 
-\begin{figure}[b]
+\begin{figure}
  \includegraphics[width=0.5\textwidth]{full}
  \caption{Stanley Rover}
  \label{fig:stanley}
@@ -82,21 +88,19 @@ Throughout the research the rover was shared with Ryan Cullen. In the first part
 
 % With respect to your personal results, if you describe a reasonably-well working system in a comprehensible manner you will pass. If you competently fill in all of these sections as described in this specification, you will get at least 55. Getting a mark over 70 requires demonstrating insight, creativity and / or understanding that goes beyond the basics laid out for you in this document. For example, an insightful comment about one or more cited papers supported by evidence from your experience might get you these extra marks. So might a particularly accurate and replicable account of your approach and results.
 
-%
+The results of the experiment are consistent with the hypothesis. With this positive result the experiment is also conducted after doubling the rover movement speed. A higher tick rate is found to help the rover at higher speeds, leading to the conclusion that the faster the rover moves, the faster it needs to sense the environment around it.
 
-The hypothesis of the experiment was as expected. With this positive result I also ran the experiment after doubling the rover movement speed and found that a higher tick rate actually assisted the rover at higher speeds, leading to the conclusion that the faster the rover moves, the faster it needs to sense the environment around it.
-
-The results for one lap were very noisy, but as the rover was required to do 10 laps, both 10 lap runs were within 5 bumps / lap of each other.
+As the results for one lap are inconsistent, the rover performs two runs of 10 laps. Both 10 lap runs were within 2 bumps per lap of each other on average, which was within the required 0.10 p-value for statistical significance.
 
 \begin{table}
 \centering
-\caption{Test Results}
+\caption{Bumps per lap at two speeds}
 \label{my-label}
 \begin{tabular}{|l|c|c|c|}
 \hline
 Tickrate         & 5  & 25 & 45 \\ \hline
-Bumps/lap @ Slow & 23 & 14 & 16 \\ \hline
-Bumps/lap @ Fast & 53 & 46 & 26 \\ \hline
+Slow & 23 \pm 2 & 14 \pm 0 & 16 \pm 1 \\ \hline
+Fast & 53 \pm 3 & 46 \pm 2 & 26 \pm 2 \\ \hline
 \end{tabular}
 \end{table}
 
@@ -106,19 +110,19 @@ The video found at \url{https://youtu.be/LOPdO0w1Uec} depicts the start of a tra
 
 % The discussion is the most discursive part of your paper, it may include speculation. You should discuss the extent to which your results addressed the questions described in your introduction, and what the results imply about your own work and AI or robotics more broadly. You might suggest other experimental protocols that could have given different results and lessons learned. This can be a longer section, and may again include citations if you compare or contrast to other published accounts.
 
-The results I got closely matched the hypothesis, however, I was not able to increase the sensing speed of the sonar due to physical limitations, which is the key part of the navigation logic. I suspect that adding a second sonar that did not require physical movement for sensing would greatly increase the navigation capabilities of the rover.
+The results closely match the hypothesis, however, the sensing speed of the sonar, which is the key part of the navigation logic, is limited due to physical speed. A second sonar that does not require physical movement for sensing may improve the navigation of the rover.
 
-During the experiments I tried to run the rover in as fixed of an environment as possible, as I found the light sensor was very susceptible to sunlight and found that closing the blinds made runs at different times of day much more consistent.
+The arena environment was kept as consistent as possible. The light sensor is very susceptible to sunlight and closing curtains in the room makes runs at different times of day more consistent. As the rover also occasionally detects the room light as a light sensor reading, a lamp shade was used. To make sonar readings consistent the arena is covered with hard surfaces.
 
-In general I think that to improve navigation, sensing and decision loops should always be run as fast as possible, and the faster the movement the more important this is. This extremely important in applications such as quadcopters where loop times affect flight characteristics \citep{betaflight}
+To improve navigation; sensing and decision loops should be increased as far as they add a tangible benefit to navigation, and the faster the movement the more important this is. In applications such as quadcopters loop times affect flight characteristics, but enabling faster loop times might mean disabling other features so this left adjustable in drone software for users. \citep{betaflight}
 
 \section{Conclusion}
 
 % The conclusion is just one paragraph. After possible digressions in the discussion, you should come back to restate exactly what you tried to do (brief summary of the introduction), what the outcome was (brief summary of the results), and what you can certainly state as a result of this (the implications of the results in light of the introduction.)
 
-This research set out to find the impact of sensing speed on the navigation of rovers. The results show that a faster sensing loop results in more accurate navigation, although, after a certain accuracy is reached returns diminish.
+This research set out to find the impact of sensing speed on the navigation of rovers. The results show that a faster sensing loop results in more accurate navigation with diminishing returns.
 
-When deciding on sensing loop speeds, this level should be reached and not surpassed, as going too high might take compute cycles away from the planning loop.
+When deciding on sensing loop speeds, this level should be reached and not surpassed, as going too high might take compute cycles away from other important parts of the planning loop.
 
 \bibliography{lejos-writeup}
 
