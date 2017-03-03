@@ -8,6 +8,7 @@ import com.domhauton.cm30229.lejos.action.movement.MovementController;
 public interface ExecutableAction {
   /**
    * Start given action.
+   *
    * @param movementController
    */
   void execute(MovementController movementController);

@@ -4,11 +4,11 @@ import com.domhauton.cm30229.lejos.action.ActionManager;
 import com.domhauton.cm30229.lejos.action.actions.Action;
 import com.domhauton.cm30229.lejos.event.sensors.SensorEvent;
 import com.domhauton.cm30229.lejos.event.sonar.SonarEvent;
+import com.domhauton.cm30229.lejos.movement.MovementManager;
 import com.domhauton.cm30229.lejos.panel.ButtonType;
 import com.domhauton.cm30229.lejos.state.Direction;
 import com.domhauton.cm30229.lejos.state.RoverState;
 import com.domhauton.cm30229.lejos.util.EventUtils;
-import com.domhauton.cm30229.lejos.util.Proximity;
 import lejos.nxt.LCD;
 
 /**
@@ -16,12 +16,10 @@ import lejos.nxt.LCD;
  */
 public class RoverManager implements Runnable {
   private final long loopTimeLength;
+  private final ActionManager actionManager;
   private long nextLoopTime;
   private long loopCounter;
   private boolean running;
-
-  private final ActionManager actionManager;
-
   private RoverState roverState;
   private SensorCallback sensorCallback;
 
@@ -33,7 +31,7 @@ public class RoverManager implements Runnable {
 
   public void panelButtonEvent(ButtonType e) {
 
-    if(roverState.isActivitySelectionActive() && !roverState.isActive()) { // Action Selection Menu
+    if (roverState.isActivitySelectionActive() && !roverState.isMoving()) { // Action Selection Menu
       roverState.setActivitySelectionActive(false);
       switch (e) {
         case LEFT:
@@ -43,9 +41,9 @@ public class RoverManager implements Runnable {
           EventUtils.debugDisplay1("Cal Done");
           break;
         case MENU:
-          roverState.toggleActive();
+          roverState.toggleMoving();
           EventUtils.debugDisplay1("Following Wall");
-          EventUtils.debugDisplay2(roverState.getWallPriority().toString());
+          EventUtils.debugDisplay2(roverState.getMoveWithWallOn().toString());
           break;
         case EXIT:
           running = false;
@@ -57,12 +55,14 @@ public class RoverManager implements Runnable {
           running = false;
           sensorCallback.shutDownSensors();
         case LEFT:
-          roverState.setWallPriority(Direction.LEFT);
+          roverState.setMoveWithWallOn(Direction.LEFT);
+          break;
         case RIGHT:
-          roverState.setWallPriority(Direction.RIGHT);
+          roverState.setMoveWithWallOn(Direction.RIGHT);
+          break;
         case MENU:
-          if(roverState.isActive()) {
-            roverState.toggleActive();
+          if (roverState.isMoving()) {
+            roverState.toggleMoving();
             EventUtils.debugDisplay1("Stopped");
             EventUtils.debugDisplay2("");
           } else {
@@ -75,13 +75,20 @@ public class RoverManager implements Runnable {
   }
 
   public void sensorEvent(SensorEvent event) {
-    roverState.setProximity(Direction.BACK, event.getBackProximity());
-    roverState.setProximity(Direction.FRONT, event.getFrontProximity());
+    roverState.setProximity(Direction.BACK, event.getBackProximity(), false);
+    roverState.setProximity(Direction.FRONT, event.getFrontProximity(), false);
   }
 
   public void sonarEvent(SonarEvent event) {
-    roverState.setProximity(Direction.LEFT, event.getLeftProximity());
-    roverState.setProximity(Direction.RIGHT, event.getRightProximity());
+    if (event.getLeftProximity() != null) {
+      roverState.setProximity(Direction.LEFT, event.getLeftProximity(), true);
+    }
+    if (event.getRightProximity() != null) {
+      roverState.setProximity(Direction.RIGHT, event.getRightProximity(), true);
+    }
+    if (event.getForwardProximity() != null) {
+      roverState.setProximity(Direction.FRONT, event.getForwardProximity(), true);
+    }
   }
 
   @Override
@@ -92,71 +99,11 @@ public class RoverManager implements Runnable {
     sensorCallback.runSensors();
     while (running) {
       nextLoopTime = EventUtils.rateLimitSleep(nextLoopTime, loopTimeLength);
-      Action nextAction = planAction(roverState);
+      Action nextAction = MovementManager.planAction(roverState, sensorCallback);
       actionManager.executeAction(nextAction);
       printState();
       loopCounter++;
     }
-  }
-
-  /**
-   * Decide on what action to take next.
-   *
-   * @return Next action to be taken given state.
-   */
-  Action planAction(RoverState currentRoverState) {
-
-//    Direction currentWallPriority = roverState.getWallPriority();
-//    Proximity leftProximity = roverState.getProximity(Direction.LEFT);
-//    Proximity rightProximity = roverState.getProximity(Direction.RIGHT);
-
-//    	/*
-//    	 * Checks if the high priority wall is further away, and if so it acts accordingly
-//    	 * to correct it.
-//    	 */
-//    switch (currentWallPriority) {
-//      case LEFT:
-//        switch (rightProximity) {
-//          case NEAR:
-//            if (leftProximity.equals(Proximity.MID)) {
-//              return Action.ROTATE_180;
-//            }
-//          case MID:
-//            if (leftProximity.equals(Proximity.FAR)) {
-//              return Action.ROTATE_180;
-//            }
-//            break;
-//          default:
-//            break;
-//        }
-//
-//        break;
-//      case RIGHT:
-//        switch (leftProximity) {
-//          case NEAR:
-//            if (rightProximity.equals(Proximity.MID)) {
-//              return Action.ROTATE_180;
-//            }
-//          case MID:
-//            if (rightProximity.equals(Proximity.FAR)) {
-//              return Action.ROTATE_180;
-//            }
-//            break;
-//          default:
-//            break;
-//        }
-//
-//        break;
-//      default:
-//        break;
-//    }
-
-    boolean hasCrashed = currentRoverState.getProximity(Direction.FRONT).equals(Proximity.NEAR)
-            || currentRoverState.getProximity(Direction.BACK).equals(Proximity.NEAR);
-
-    boolean shouldMove = currentRoverState.isActive() && !hasCrashed;
-
-    return shouldMove ? Action.FORWARD : Action.IDLE;
   }
 
   private void printState() {

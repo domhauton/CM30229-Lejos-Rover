@@ -8,7 +8,6 @@ import com.domhauton.cm30229.lejos.action.movement.MovementController;
 class MoveForward implements ExecutableAction {
   @Override
   public void execute(MovementController movementController) {
-    movementController.getMotorLeft().forward();
-    movementController.getMotorRight().forward();
+    movementController.moveForward();
   }
 }

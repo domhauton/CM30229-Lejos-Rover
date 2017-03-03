@@ -8,7 +8,6 @@ import com.domhauton.cm30229.lejos.action.movement.MovementController;
 class MoveBackward implements ExecutableAction {
   @Override
   public void execute(MovementController movementController) {
-    movementController.getMotorLeft().backward();
-    movementController.getMotorRight().backward();
+    movementController.moveBackward();
   }
 }

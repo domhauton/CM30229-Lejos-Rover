@@ -8,7 +8,6 @@ import com.domhauton.cm30229.lejos.action.movement.MovementController;
 class Idle implements ExecutableAction {
   @Override
   public void execute(MovementController movementController) {
-    movementController.getMotorLeft().stop();
-    movementController.getMotorRight().stop();
+    movementController.stop();
   }
 }
