@@ -26,9 +26,9 @@ A decision loop reads the state and determines a meta-state, (such as TOO_CLOSE_
 
 The meta-state also directs the sonar. If it is following a wall on the left and has found the wall, it skips the reading on the right as it is irrelevant to the navigation. This system describes the platform for experimentation. The goal is to find if there is an optimal sensing rate.
 
-The rover is run at a tick rate (measurements per second) of 5, 25 and 45. During a run the rover performs 10 laps of the test track (fig. ??), and the number of bump sensor activations was recorded programmatically.
+The rover is run at a tick rate (measurements per second) of 5, 25 and 45. During a run the rover performs 10 laps of the test track (fig. 3), and the number of bump sensor activations was recorded programmatically.
 
-Each run is done twice. The hypothesis is that the rover will perform better with a higher tick rate, but with diminishing returns. If the rover is stuck in a corner, the experiment is restarted. During each run, the rover is started in the bottom left hand corner of the arena (fig. ??) facing the left wall. The experiment is conducted with a variety of obstacle types and sizes to produce a generalised result.
+Each run is done twice. The hypothesis is that the rover will perform better with a higher tick rate, but with diminishing returns. If the rover is stuck in a corner, the experiment is restarted. During each run, the rover is started in the bottom left hand corner of the arena (fig. 3) facing the left wall. The experiment is conducted with a variety of obstacle types and sizes to produce a generalised result.
 
 Figure 3: Test Area Layout
 ![Rover Head Sensor](https://github.com/domhauton/CM30229-Intelligent-Control-Systems-Lejos/blob/master/writeup/dominic/img/test-area-layout.png)
@@ -56,7 +56,7 @@ The video found at [youtu.be/LOPdO0w1Uec](https://youtu.be/LOPdO0w1Uec) depicts 
 
 The results closely match the hypothesis, however, the sensing speed of the sonar, which is the key part of the navigation logic, is limited due to physical speed. A second sonar that does not require physical movement for sensing may improve the navigation of the rover.
 Although the arena environment was kept as consistent as possible, the light sensor is very susceptible to bright light and occasionally reacted to the room light being in front of it. To make sonar readings consistent the arena is covered with hard surfaces, but even with the arena, materials of different hardness result in different distance readings.
-The main take away from the research, is that to improve navigation of a rover; sensing should be increased as far as they add a tangible benefit to navigation, and the faster the movement the more important this is. In applications such as quadcopters loop times affect flight characteristics, but enabling faster loop times might mean disabling other features so this left adjustable in drone software for users. [?]. It is important for these users to understand the significance of this sensing rate change.
+The main take away from the research, is that to improve navigation of a rover; sensing should be increased as far as they add a tangible benefit to navigation, and the faster the movement the more important this is. In applications such as quadcopters loop times affect flight characteristics, but enabling faster loop times might mean disabling other features so this left adjustable in drone software for users. [Betaflight, 2017]. It is important for these users to understand the significance of this sensing rate change.
 
 ## Conclusion
 
