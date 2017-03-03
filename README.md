@@ -3,20 +3,24 @@
 ## Introduction
 
 The goal of this research is to see the effect of changing the rate of sensing on the navigation capabilities of a rover. The rover is built using parts from the LEGO Mindstorm NXJ kit. Four sensors are utilised for sensing; a Sonar, Light Sensor and Bump Sensor (x2), and three motors provide movement.
+
 The sonar is mounted on a pivot to allow for measurements in multiple directions, as shown in figure 1. Two driven wheels are used for drive and a trolley wheel is placed at the back for stability.
 
 Figure 1: Rover Head Sensor
 ![Rover Head Sensor](https://github.com/domhauton/CM30229-Intelligent-Control-Systems-Lejos/blob/master/writeup/dominic/img/headshot.JPG)
 
 During development a reactive approach is taken, using the subsumption architecture [Wooldridge, 2009] to allow the rover to determine its current situation.
+
 The use of the subsumption architecture is based on Brooks [1991]’ thesis that Intelligence is an emergent property of certain complex systems. During development this subsumption approach is added into the perception mechanism.
 
 ## Approach
 
 The initial design of the rover is a simple reflex agent as described by Russell et al. [1995]. This takes numerical sensor readings, and uses transduction converting them to a qualitative proximity label in every cardinal direction, making immediate decisions based on these readings. This allows the rover to react to a crash but gives no context for recovery.
+
 The final design uses Russell et al. [1995]’s model-based reflex agent. This allows the sensors to modify the state at individual rates. There are two sensing thread loops as shown in figure 2. This is done to prevent the sonar slowing down other sensors.
 
 As the front sensor uses three (Bump, light and sonar) separate sensors for proximity detection the closest, most important, result is taken. To improve sensor quality 15 readings are taken every measurement and any reading more than two standard deviations away from the mean is thrown out. The remainder of the readings are averaged.
+
 To account for arena variances, a calibration routine is used. This requests several rover placements a given distance from the arena wall on each side.
 
 Figure 2: Final Perception Architecture
@@ -41,6 +45,7 @@ Figure 4: Stanley Rover
 ## Results
 
 The results of the experiment are consistent with the hypothesis. With this positive result the experiment is also conducted after doubling the rover movement speed. A higher tick rate is found to help the rover at higher speeds, leading to the conclusion that the faster the rover moves, the faster it needs to sense the environment around it.
+
 As the results for one lap are inconsistent, the rover performs two runs of 10 laps. Both 10 lap runs were within 2 bumps per lap of each other on average, which was within the required 0.10 p-value for statistical significance.
 
 Table 1: Bumps per lap at two speeds
@@ -55,12 +60,15 @@ The video found at [youtu.be/LOPdO0w1Uec](https://youtu.be/LOPdO0w1Uec) depicts 
 ## Discussion
 
 The results closely match the hypothesis, however, the sensing speed of the sonar, which is the key part of the navigation logic, is limited due to physical speed. A second sonar that does not require physical movement for sensing may improve the navigation of the rover.
+
 Although the arena environment was kept as consistent as possible, the light sensor is very susceptible to bright light and occasionally reacted to the room light being in front of it. To make sonar readings consistent the arena is covered with hard surfaces, but even with the arena, materials of different hardness result in different distance readings.
+
 The main take away from the research, is that to improve navigation of a rover; sensing should be increased as far as they add a tangible benefit to navigation, and the faster the movement the more important this is. In applications such as quadcopters loop times affect flight characteristics, but enabling faster loop times might mean disabling other features so this left adjustable in drone software for users. [Betaflight, 2017]. It is important for these users to understand the significance of this sensing rate change.
 
 ## Conclusion
 
 This research set out to find the impact of sensing speed on the navigation of rovers. The results show that a faster sensing loop results in more accurate navigation with diminishing returns.
+
 When deciding on sensing loop speeds, this level should be reached and not surpassed, as going too high might take compute cycles away from other important parts of the planning loop.
 
 ## Bibliography
